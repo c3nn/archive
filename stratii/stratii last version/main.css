@@ -1,0 +1,382 @@
+/** setup */
+@font-face {
+	font-family: "materialIcons";
+	src: local("Material Symbols Rounded"), url("assets/googleMaterialIcons.woff2");
+	font-display: swap;
+}
+.symbol{
+	font-family: "materialIcons" !important;
+}
+@font-face {
+	font-family: "Open Sans";
+	src: local("Opan Sans"), url("assets/OpenSans.ttf");
+	font-display: swap;
+}
+@font-face {
+	font-family: "JetBrains Mono";
+	src: local("JetBrains Mono"), url("assets/JetBrainsMono.ttf");
+	font-display: swap;
+}
+@font-face{
+	font-family: "bahnschrift";
+	src: local("bahnschrift"), url("assets/bahnschrift.ttf");
+	font-display: swap;
+}
+@supports (background: paint(something)) { /* use houdini so they can be animated, val not used */
+	@property --menu-bar-open {
+		syntax: '<number>';
+		initial-value: 0;
+		inherits: false;
+	}
+	@property --status-bar-open {
+		syntax: '<number>';
+		initial-value: 0;
+		inherits: false;
+	}
+}
+:root{
+	--bg-color: rgba(24,24,24,1);
+	--dark-accent-color: rgba(0,0,0,0.55);
+	--accent-color: rgba(255,255,255,0.55);
+	--yellow-color: rgba(216,173,33,1);
+	--red-color: rgba(216,33,33,1);
+
+	--timing-func-overshoot: cubic-bezier(.1,.8,0,1.05);
+	--timing-func-tabSnap: cubic-bezier(.07,.5,0,.95);
+
+	--split-border-thickness: 3px;
+	--title-size: 12px;
+	--menu-bar-open: 0;
+	--menu-bar-height: 25px;
+	--menu-bar-height-variable: calc(var(--menu-bar-height) * var(--menu-bar-open));
+	--menu-bar-height-variable-limited: min(var(--menu-bar-height-variable), calc(var(--menu-bar-height) * 1.5));
+	--status-bar-open: 1;
+	--status-bar-height: 13px;
+	--status-bar-height-variable: calc(var(--status-bar-height) * var(--status-bar-open));
+	--status-bar-height-variable-limited: min(var(--status-bar-height-variable), calc(var(--status-bar-height) * 1.5));
+	transition: --status-bar-open 1s var(--timing-func-overshoot), --menu-bar-open 1s var(--timing-func-overshoot);
+
+	background: var(--bg-color);
+	color: var(--accent-color);
+	font-family: bahnschrift;
+}
+::-webkit-scrollbar{
+	width: 0px;
+	height: 0px;
+	background: transparent;
+	display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+	#loadingUi, #loadingUi *{
+		animation: none !important;
+		transition: opacity 1s linear !important;
+	}
+	.overlayWindow{
+		transition: opacity var(--duration) linear !important;
+	}
+	.overlayWindow:not([data-show="true"]){
+		transition: opacity var(--duration) linear, height 0s linear var(--duration), bottom 0s linear var(--duration) !important;
+	}
+}
+@media (prefers-contrast: more) {
+	:root{
+		--accent-color: #ffffff;
+		--bg-color: #000000;
+		--dark-accent-color: rgb(70,70,70);
+	}
+	.transparentSpan{
+		opacity: 1 !important;
+		color: var(--accent-color);
+		z-index: 1;
+	}
+	:is(.statusBar, .menuBar) *{
+		opacity: 1 !important;
+	}
+}
+@keyframes intro {
+	0%{letter-spacing: 3vh;}
+	100%{letter-spacing: 0vh;}
+}
+@keyframes introMid {
+	0%{letter-spacing: 0vh;}
+	100%{letter-spacing: -1vh;}
+}
+@keyframes introEnd {
+	0%{letter-spacing: -1vh;}
+	100%{letter-spacing: 0vh;}
+}
+
+/** general */
+*[data-jetbrains]{
+	font-family: Jetbrains mono;
+}
+*[data-tooltip]:hover{
+	position: relative;
+}
+#tooltip{
+	position: fixed;
+	z-index: 99999;
+	background: var(--dark-accent-color);
+	padding: 5px;
+	border: solid 0px transparent;
+	border-radius: 2px;
+	font-size: var(--title-size);
+	user-select: none;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 1s var(--timing-func-overshoot);
+}
+:root:has(*[data-tooltip]:hover) * #tooltip{
+	display: block;
+	opacity: 1;
+	transition-delay: 1s;
+}
+.keybind{
+	display: inline-block;
+	font-family: JetBrains Mono;
+	color: var(--bg-color);
+	scale: 0.9;
+	background: var(--accent-color);
+	padding: 2px;
+	border: solid transparent 0px;
+	border-radius: 5px;
+}
+.keybind:before{content: '[';}
+.keybind:after{content: ']';}
+
+#mainCanvas{
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	image-rendering: pixelated;
+	user-select: none;
+}
+.ui{
+	display: flex;
+	position: absolute;
+	left: 0px;
+	bottom: var(--status-bar-height-variable);
+	width: 100%;
+	height: calc(100svh - var(--menu-bar-height-variable) - var(--status-bar-height-variable));
+	margin: 0px;
+	padding: 0px;
+	background: var(--bg-color);
+	overflow: hidden;
+	pointer-events: all;
+	flex-direction: column;
+	align-items: center;
+}
+
+/** statusBar / menuBar */
+#statusBar, #menuBar{
+	--timing-fuct: var(--timing-func-overshoot);
+	position: absolute;
+	display: flex;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	height: var(--status-bar-height-variable);
+	overflow: hidden;
+	background: var(--dark-accent-color);
+	color: var(--accent-color);
+	font-size: var(--status-bar-height-variable-limited);
+	justify-content: space-between;
+	align-items: center;
+}
+#menuBar{
+	top: 0px;
+	height: var(--menu-bar-height-variable);
+	font-size: var(--menu-bar-height-variable-limited);
+}
+:is(#statusBar, #menuBar) .symbol{
+	font-size: calc(var(--status-bar-height-variable-limited) * 0.8);
+	position: relative;
+	margin-right: 2px;
+	top: calc(var(--status-bar-height-variable-limited) * 0.08);
+}
+:root:has(* #statusBar:hover){
+	--status-bar-open: 3;
+}
+:is(#statusBar, #menuBar) .statusMsg{
+	height: var(--status-bar-height-variable-limited);
+	color: var(--c, var(--accent-color));
+	padding: 0px 5px 0px 5px;
+	cursor: pointer;
+}
+
+/** splits */
+.hSplit, .vSplit{
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	background: transparent;
+	border-right: solid var(--split-border-thickness) var(--dark-accent-color);
+	height: 100%; /**/
+	width: 100%; /** both 100% so it's evenly spaced */
+	overflow: auto;
+}
+.vSplit{
+	border: none;
+	border-bottom: solid var(--split-border-thickness) var(--dark-accent-color);
+}
+:is(.hSplit, .vSplit):last-of-type{
+	border: none;
+}
+.hSplit:has(.vSplit), .vSplit:has(.hSplit){
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow: hidden;
+}
+.vSplit:has(.hSplit){
+	flex-direction: row;
+}
+:is(.vSplit, .hSplit) .data-title{
+	position: absolute;
+	background: var(--dark-accent-color);
+	color: var(--accent-color);
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	font-size: var(--title-size);
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	transition: width 0.1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+:is(.vSplit, .hSplit):has(> .flex) .data-title{
+	height: calc(50% - 36px);
+	font-size: calc(var(--title-size) * 1.5);
+}
+
+/** splits' elements */
+:is(.vSplit, .hSplit) .indent{
+	border-left: solid var(--split-border-thickness) var(--accent-color);
+	padding-left: 2px;
+}
+:is(.vSplit, .hSplit) span{
+	font-size: 20px;
+}
+:is(.vSplit, .hSplit) .transparentSpan{
+	color: var(--accent-color);
+	font-family: JetBrains mono;
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+}
+:is(.vSplit, .hSplit) .flex{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+:is(.vSplit, .hSplit) .flex :is(.playbackButton,.playbackInput){
+	width: 100px;
+	height: auto;
+	background: transparent;
+	color: var(--accent-color);
+	border: none;
+	font-size: 70px;
+	text-shadow: 0px 0px 2px var(--accent-color);
+	transition: text-shadow 0.1s ease-out;
+}
+:is(.vSplit, .hSplit) .flex .playbackButton:hover{
+	text-shadow: 0px 0px 10px var(--accent-color);
+}
+:is(.vSplit, .hSplit) .flex :is(.playbackButton,.playbackInput):first-child{
+	text-align: right;
+	width: 100%;
+}
+:is(.vSplit, .hSplit) .flex :is(.playbackButton,.playbackInput):last-child{
+	text-align: left;
+	width: 100%;
+}
+:is(.vSplit, .hSplit) .flex .playbackInput{
+	font-size: 20px;
+	direction: rtl;
+	text-decoration: underline;
+}
+
+/** tabs */
+.tabCont{
+	position: relative;
+	overflow: hidden;
+}
+.tabCont .tab:not([data-show=true]){
+	height: 0%;
+	opacity: 0;
+}
+.tabCont .tab{
+	display: block;
+	height: calc(100% - var(--title-size));
+	width: 100%;
+	overflow: auto;
+	opacity: 1;
+	transition: height 0.4s, opacity 0.4s;
+	transition-timing-function: var(--timing-func-tabSnap);
+}
+.tabCont .tabBar{
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	bottom: 0px;
+	height: var(--title-size);
+	width: 100%;
+	background: var(--dark-accent-color);
+	font-size: var(--title-size);
+}
+.tabCont .tabBar .tabButton{
+	--title-half: calc(var(--title-size) * 0.5);
+	border: solid transparent 0px;
+	border-radius: 0px 0px var(--title-half) var(--title-half);
+	background: var(--bg-color);
+	color: var(--accent-color);
+	font-size: var(--title-size);
+	padding: 0px var(--title-half) 0px var(--title-half);
+	margin-right: calc(var(--title-size) * 0.25);
+	user-select: none;
+	cursor: pointer;
+}
+.tabCont .tabBar .tabButton:last-child{
+	margin-right: 0px;
+}
+
+/** windows */
+.overlayWindow{
+	--timingFunc: var(--timing-func-overshoot);
+	--duration: 0.7s;
+	position: absolute;
+	left: 15%;
+	bottom: 10%;
+	width: 70%;
+	height: 80%;
+	outline: solid var(--split-border-thickness) var(--accent-color);
+	background: var(--dark-accent-color);
+	opacity: 1;
+	transition: opacity var(--duration) var(--timingFunc), height var(--duration) var(--timingFunc), bottom var(--duration) var(--timingFunc);
+}
+.overlayWindow:not([data-show="true"]){
+	height: 0px;
+	opacity: 0;
+	bottom: 5%;
+	user-select: none;
+	pointer-events: none;
+}
+.overlayWindow span:not(.data-title){
+	position: relative;
+	border-color: var(--accent-color);
+	transition: top var(--duration) var(--timingFunc), opacity var(--duration) var(--timingFunc);
+	transition-delay: calc(0.08s * var(--delay));
+	top: 0px;
+	opacity: 1;
+}
+.overlayWindow:not([data-show="true"]) span:not(.data-title){
+	top: 100px;
+	opacity: 0;
+	transition-delay: 0s;
+}

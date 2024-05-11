@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+:root{
+	background: linear-gradient(45deg, hsl(0, 0%, 0%), #271f16);
+	width: 100vw;
+	height: 100vh;
+	user-select: none;
+	--controlsHeight: 0.70;
+}
+@keyframes errMsg {
+	0%	{height: 0px; border-width: 0px; margin-top: 0px;}
+	100%{height: 40px; border-width: 10px; margin-top: 10px;}
+}
+.errorContainer{
+	z-index: 9999999;
+	display: flex;
+	justify-content: left;
+	align-items: flex-end;
+	flex-direction: column;
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
+	width: 100vw;
+	height: auto;
+	pointer-events: none;
+}
+.errorMessage{
+	width: auto;
+	height: 40px;
+	font-size: 30px;
+	border: solid transparent 10px;
+	border-radius: 20px 20px 0px 20px;
+	color: #ffffff;
+	background: #000000cc;
+	font-family: Open Sans; 
+	transition: background 0.3s ease, height 0.3s ease-in, border-width 0.3s ease-in, margin-top 0.3s ease-in;
+	text-align: center;
+	overflow: hidden;
+	animation: errMsg 0.3s;
+	margin-top: 10px;
+	pointer-events: all;
+}
+.mainContainer{
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	top: 0px;
+	left: 0px;
+}
+.mainContainer canvas{
+	position: absolute;
+	right: 0px;
+	width: calc(100vw - 400px);
+	height: 100%;
+	background: transparent;
+	image-rendering: pixelated;
+}
+.controlsContainer, .objectsContainer{
+	position: absolute;
+	background: rgba(0, 0, 0, 0.2);
+	right: auto;
+	left: 0px;
+	width: 400px;
+}
+.controlsContainer{
+	height: calc(100vh * var(--controlsHeight));
+}
+.controlsContainer *{
+	color: #ffffff;
+	font-size: 25px;
+	font-family: Open Sans;
+}
+.controlsContainer .right{
+	position: absolute;
+	right: 2px;
+}
+.controlsContainer h1{
+	margin-top: 2px;
+	margin-bottom: 0px;
+	text-decoration: underline;
+}
+.controlsContainer input[type = button]{
+	background-color: rgba(255, 255, 255, 0.1);
+	margin-top: 2px;
+	border: none;
+	border-radius: 3px;
+}
+.controlsContainer .canvasTypeSelector{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	width: 30px;
+	height: auto;
+	bottom: 35px;
+}
+.controlsContainer .canvasTypeSelector input{
+	width: 30px;
+	height: 30px;
+	background-image: var(--img);
+	background-repeat: no-repeat;
+	background-size: 24px;
+	background-position-x: 3px;
+	background-position-y: 3px;
+	position: relative;
+	image-rendering: pixelated;
+}
+.objectsContainer{
+	height: calc(100vh - 100vh * var(--controlsHeight));
+	top: auto;
+	bottom: 0px;
+}

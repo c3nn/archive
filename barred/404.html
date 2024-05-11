@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>umm...</title>
+</head>
+<body>
+	<a href="https://c3nn.com"><h1>umm... I think you're <i>lost</i></h1></a>
+</body>
+<style>
+	body{
+		position: fixed;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100svh;
+		width: 100vw;
+		background: #050300;
+	}
+	a{
+		text-decoration: none;
+	}
+	h1{
+		background: transparent;
+		border: solid 0px transparent;
+		font-family: 'Times New Roman', Times, serif;
+		font-size: 30px;
+		color: #f5deb3;
+		transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+		text-decoration: underline;
+		text-decoration-color: #f5deb3;
+		position: relative;
+	}
+	h1:hover{
+		--bg-color: white;
+		background: var(--bg-color);
+		border: solid 20px var(--bg-color);
+		border-top: solid 0px transparent;
+		color: #050300;
+		text-decoration-color: #050300;
+		font-size: 100px;
+		cursor: pointer;
+	}
+	h1::after{
+		content: "let's go back";
+		position: absolute;
+		font-size: 20px;
+		top: 110px;
+		left: 0px;
+		opacity: 0;
+		transition: opacity 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+		pointer-events: none;
+		color: #050300;
+	}
+	h1:hover::after{
+		opacity: 1;
+		transition: opacity 1.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+	}
+</style>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="icon" href="a/favicon.ico" type="image/x-icon">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Conman.dev</title>
+	<meta name="description" content="Stop on by and take a gander' kind stranger">
+	<meta name="robots" content="all">
+</head>
+<body>
+	<header onclick="if(window.innerWidth < 1300){ var h = document.querySelector('.headerBottom'); if(h.style.height == '12vh'){h.style.height = '0vh'; this.style.height = '6vh';}else{h.style.height = '12vh';this.style.height = '100vh';}}">
+		<div class="headerTop" style="cursor: default;">
+			<div class="logo">
+				<img id="logoSvg" src="a/spiff.svg" alt="Spiff, we love Spiff" class="logoSvg" style="height: 5vh;">
+				<t class="headerTitle">Conman.dev</t>
+			</div>
+		</div>
+		<div class="headerBottom">
+			<div class="headerSelectors">
+				<div class="headSelDiv first">
+					<a title="href CHANGED, ORIGINAL: https://osu.conman.dev" href="osu"><span style="font-family: Aller;">osu!</span>online <span style="font-family: Teko; font-size: 1.6vh; margin-left: -0.8vh">//BETA</span></a>
+					<a href="mfree" style="font-family: roboto;">Measure Freedom<i style="font-family: roboto; font-size: 2vh;">.com</i></a>
+				</div>
+				<div class="selDivider"></div>
+				<div class="headSelDiv">
+					<a href="https://github.com/cconmann">GitHub</a>
+					<a href="https://codepen.io/conmann">CodePen</a>
+					<a href="https://g.dev/dcd">Google Devs</a>
+				</div>
+			</div>
+			<label>Projects</label>
+			<label style="left: calc(50% - 7.25vh); top: -6vh;">Links</label>
+		</div>
+	</header>
+	<div class="mainCenter">
+		<main>
+			<section class="hero">
+				<canvas id="hero" width="1300" height="600"></canvas>
+				<h1 id="heroTxt">Conman.dev</h1>
+			</section>
+			<section class="interestCodepen">
+				<h1>May I interest you in some of my CodePen projects?</h1>
+				<div class="grid">
+					<iframe style="grid-column: 1 / 2;" src="https://codepen.io/Conmann/embed/RwjEOEy?default-tab=result" frameborder="no" loading="lazy"></iframe>
+					<iframe style="grid-row: 1 / 2;" src="https://codepen.io/Conmann/embed/wvroZXo?default-tab=result" frameborder="no" loading="lazy"></iframe>
+					<iframe style="grid-row: 2 / 3;" src="https://codepen.io/Conmann/embed/eYRvgGg?default-tab=result" frameborder="no" loading="lazy"></iframe>
+					<iframe style="grid-row: 3 / 4;" src="https://codepen.io/Conmann/embed/NWadMRG?default-tab=result" frameborder="no" loading="lazy"></iframe>
+					<iframe style="grid-column: 1 / 2; grid-row: 3 / 4;" src="https://codepen.io/Conmann/embed/abyzzeW?default-tab=result" frameborder="no" loading="lazy"></iframe>
+				</div>
+			</section>
+		</main>
+		<footer>
+			<label>Conmann ©1746</label>
+		</footer>
+	</div>
+</body>
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Recursive&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Teko&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+	@font-face { font-family: aller; src: url(a/Aller.ttf); }
+	*{
+		top: 0vh;
+		left: 0vh;
+		font-family: Quicksand;
+	}
+	:root{
+		background-color: #0c0b09;
+	}
+	@media screen { /* Header */
+		header{
+			position: fixed;
+			flex-direction: column;
+			justify-content: left;
+			height: 6vh;
+			width: 100%;
+			z-index: 100;
+		}
+		header:hover{
+			height: 15vh;
+		}
+		.headerTop, .headerBottom{
+			display: flex;
+			background: #f0f0f0;
+			height: 6vh;
+			width: 100%;
+			justify-content: center;
+			align-items: center;
+		}
+		.logo{
+			display: flex;
+			justify-content: left;
+			align-items: center;
+			height: 6vh;
+			width: auto;
+		}
+		.headerTitle{
+			margin-left: 1vh;
+			font-size: 3vh;
+			color: #0c0b09;
+			text-decoration: none;
+		}
+		@media only screen and (min-width: 1300px){ /* Desktop */
+			header{
+				position: absolute;
+			}
+			header:hover >	 .headerBottom{
+				height: 5.7vh;
+				top: -5.7vh;
+				transition: height 0.2s, top 0.2s;
+			}
+			.headerBottom{
+				display: block;
+				position: relative;
+				height: 0vh;
+				overflow: hidden;
+				background: #c5c5c5;
+				transition: height 0.6s, top 0.6s;
+				transition-timing-function: cubic-bezier(0.32, 0, 0.67, 0);
+			}
+			.headerBottom label{
+				position: relative;
+				top: -6vh;
+				left: calc(50% - 8vh);
+				font-size: 2vh;
+				color: #a0a0a0;
+				cursor: default;
+			}
+			.headerSelectors{
+				display: flex;
+				height: 100%;
+				width: 100%;
+				justify-content: center;
+				align-items: center;
+				white-space: nowrap;
+			}
+			.headSelDiv	{
+				width: calc(50% - 0.4vh);
+			}
+			.headSelDiv.first{
+				display: flex;
+				justify-content: right;
+			}
+			.headSelDiv a{
+				display: inline-block;
+				margin-left: 5vh;
+				margin-right: 5vh;
+				left: auto;
+				font-size: 3vh;
+				color: #0c0b09;
+				text-decoration: none;
+				transform: translateY(0vh);
+				transition: transform 0.2s;
+			}
+			.headSelDiv a:hover{
+				transform: translateY(-0.2vh);
+			}
+			.selDivider{
+				position: relative;
+				width: 0.15vh;
+				height: 77%;
+				border: solid transparent 0vh;
+				border-radius: 0.15vh;
+				background: #a0a0a0;
+				transform: skewX(-8deg);
+			}
+		}
+		@media only screen and (max-width: 1300px){ /* Mobile */
+			.headerBottom label{
+				display: none;
+			}
+			.headerBottom{
+				display: block;
+				position: relative;
+				height: 0vh;
+				overflow: hidden;
+				background: #c5c5c5;
+				transition: height 0.3s, top 0.3s;
+				transition-timing-function: cubic-bezier(0.32, 0, 0.67, 0);
+			}
+			.headerSelectors{
+				width: 100%;
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.headSelDiv a{
+				display: inline-block;
+				left: auto;
+				font-size: 3vh;
+				color: #0c0b09;
+				text-decoration: none;
+				transform: translateY(0vh);
+				transition: transform 0.2s;
+			}
+			.headSelDiv{
+				width: calc(50% - 0.15vh);
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: left;
+			}
+			.selDivider{
+				width: 0.3vh;
+				height: 90%;
+				border: none;
+				border-radius: 0.3vh;
+				background: #a0a0a0;
+			}
+		}		
+	}
+	/* Default */
+	.mainCenter{
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		width: 100%;
+	}
+	main{
+		margin-top: calc(6vh + 20px);
+		width: 1200px;
+	}
+	.hero{
+		position: relative;
+		left: -50px;
+		width: 1300px;
+		height: 600px;
+		margin-bottom: 350px;
+		overflow: hidden;
+		background: #24211b;
+		z-index: 2;
+	}
+	.hero canvas{
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background: transparent;
+		z-index: 3;
+	}
+	.hero h1{
+		position: relative;
+		color: #0c0b09;
+		font-size: 230px;
+		top: -430px;
+		left: 15px;
+		font-family: Lato;
+		cursor: default;
+		z-index: 1;
+	}
+	.heroArrow div label{
+		padding-left: 500px;
+	}
+	.interestCodepen{
+		transform: scale(0.75);
+	}
+	.interestCodepen h1{
+		font-size: 30px;
+		color: #f0f0f0;
+	}
+	.interestCodepen .grid{
+		box-shadow: 0 0 1px 3px #f0f0f0;
+		background: #f0f0f0;
+		display: grid;
+		width: 1200px;
+		height: 1400px;
+		grid-template-columns: 53% auto;
+		grid-template-rows: 33.3% 33.3% auto;
+		gap: 3px;
+		margin-bottom: 200px;
+	}
+	.interestCodepen .grid iframe{
+		width: 100%;
+		height: 100%;
+		grid-column: 2 / 3;
+		grid-row: 1 / 3;
+	}
+	footer{
+		position: absolute;
+		background: #24211b;
+		width: 100%;
+		text-align: center;
+		height: 16px;
+		top: auto;
+		bottom: 0px;
+	}
+	footer label{
+		position: relative;
+		top: auto;
+		bottom: 2px;
+		color: #0c0b09;
+		font-size: 14px;
+	}
+	@media only screen and (max-width: 1300px){ /* Mobile */
+		main{
+			display: flex;
+			width: 100vw;
+			flex-direction: column;
+			align-content: center;
+			overflow: hidden;
+		}
+		.hero{
+			width: 100vw;
+			height: calc(100vw * 0.461);
+			left: 0px;
+		}
+		.hero canvas{
+			width: 100vw;
+			height: auto;
+		}
+		.hero h1{
+			font-size: 17.7vw;
+			top: -33.1vw;
+			left: 1.2vw;
+		}
+		.interestCodepen, footer{
+			display: none;
+		}
+	}
+</style>
+<script>
+	// header
+	var d = document,
+	date = new Date(),
+	month = date.getMonth(),
+	day = date.getDate();
+	if(month == 9 && day >= 20){
+		d.querySelector('#logoSvg').src = 'a/spookySpiff.svg';
+	}else if(month == 11){
+		d.querySelector('#logoSvg').src = 'a/saintSpiff.svg';
+	}else if(month == 0 && day == 25){
+		d.querySelector('#logoSvg').src = 'a/irlSpiff.png';
+	}
+
+	// hero
+	if(window.innerWidth > 1299){
+		window.onscroll = function(){ d.querySelector('#heroTxt').style.top = window.pageYOffset / 8 - 430 + 'px'; };
+	}
+
+	var heroCanvas = d.querySelector('#hero'),
+	c = heroCanvas.getContext('2d'),
+	heroTxt = d.querySelector('#heroTxt');
+	function hero0(){ // live css
+		c.clearRect(0, 0, 1300, 600);
+		heroCanvas.onclick = function(){};
+		heroCanvas.style.cursor = 'default';
+		var currentEl = 0,
+		currentLetter = -1;
+		heroTxt.style.fontFamily = 'arial';
+		heroTxt.style.fontSize = '50px';
+		heroTxt.style.left = '0px';
+		heroTxt.style.color = '#ffffff';
+		heroTxt.style.transition = 'left 0.2s, color 0.2s, font-size 0.2s';
+		var HERO_CSS = [
+		'.hero h1{',function(){},
+		' font-size: 230px;', function(){heroTxt.style.fontSize = '230px';},
+		' font-family: Lato;', function(){heroTxt.style.fontFamily = 'Lato';},
+		' color: #0c0b09;', function(){heroTxt.style.color = '#0c0b09';},
+		' left: 15px;', function(){heroTxt.style.left = '15px';},
+		'}'
+		];
+		c.font = '48px Recursive';
+		c.fillStyle = "#595243";
+		function txtUpdate(){
+			currentLetter++
+			if(currentLetter > HERO_CSS[currentEl].length){
+				currentEl++
+				currentLetter = 0;
+			}
+			if(currentEl == HERO_CSS.length){
+				clearInterval(txtUpdateLoop);
+				heroCanvas.onclick = function(){hero0()};
+				heroCanvas.style.cursor = 'pointer';
+				return;
+			}
+			if(typeof HERO_CSS[currentEl] === 'function'){
+				HERO_CSS[currentEl]();
+				currentEl++
+			}
+			c.fillText(HERO_CSS[currentEl].slice(0,currentLetter), 4, 40 + (currentEl * 24));
+		}
+		var txtUpdateLoop = setInterval(txtUpdate, 100);
+	}
+	function hero1(){ // trees
+		heroCanvas.style.transform = 'rotateX(180deg)';
+		const tree0 = new Image(76, 138),
+		tree1 = new Image(76, 248),
+		tree2 = new Image(88, 414);
+		var trees = [],
+		littleMan = {
+			pos: 1400,
+		};
+		tree0.src = 'a/hero/tree0.png';
+		tree1.src = 'a/hero/tree1.png';
+		tree2.src = 'a/hero/tree2.png';
+
+		function makeTree(){
+			let ranPos = Math.floor(Math.random() * 1212),
+			isColidding = false;
+			trees.forEach(tree => {
+				if(tree.pos > ranPos - 90 && tree.pos < ranPos + 90){
+					isColidding = true;
+				}
+			});
+			if(isColidding == false){
+				trees.push({
+					pos: ranPos
+				});
+				c.drawImage(eval('tree' + Math.floor(Math.random() * 3)), ranPos, 0);
+			}
+		}
+		interval = setInterval(makeTree, 3000);
+
+		tree2.onload = function(){
+			for (let i = 0; i < 8; i++) {
+				makeTree();
+			}
+		}
+	}
+	function hero2(){ // matrix
+		heroTxt.style.zIndex = '4';
+		heroCanvas.style.background = '#000';
+		heroTxt.style.color = '#080808';
+		var obj = [];
+		c.font = '20px arial';
+		function create(){
+			obj.push({
+				type: Math.round(Math.random()),
+				xpos: Math.round(Math.random()*1295),
+				ypos: 0
+			});
+		}
+		function render(){
+			c.fillStyle = 'rgba(0, 0, 0, 0.08)';
+			c.fillRect(0, 0, 1300, 600);
+			c.fillStyle = '#006400';
+			obj.forEach((e, index) => {
+				c.fillText(e.type, e.xpos, e.ypos);
+				e.ypos += 20;
+				if(e.ypos > 620){
+					obj.splice(index, 1);
+				}
+			});
+		}
+		var renderLoop = setInterval(render, 100),
+		createLoop = setInterval(create, 70);
+	}
+	function hero3(){ // bounce
+		const NAME = 'Conman.dev',
+		SPACINGS = [14,171,299,426,616,732,861,909,1038,1156],
+		HEIGHTS =  [174,125,125,125,125,125,31 ,176,124,122],
+		WIDTHS =   [140,115,93 ,155,93 ,93 ,27 ,108,107,128],
+		XOFFSETS = [8  ,5  ,13 ,13 ,8  ,13 ,8  ,5  ,5  ,-2],
+		YOFFSETS = [-5 ,-5 ,-5,-5 ,-5  ,-5 ,-5 ,-5 ,-5 ,-5];
+		heroTxt.style.display = 'none';
+		var letters = [];
+		c.font = 'bold 235px Lato';
+		c.fillStyle = "#0c0b09";
+		for (let i = 0; i < 10; i++){
+			letters.push({
+				cont: NAME.slice(i,i+1),
+				bx: XOFFSETS[i],
+				by: YOFFSETS[i],
+				width: WIDTHS[i],
+				height: HEIGHTS [i],
+				x: SPACINGS[i],
+				xvol: (Math.random() * 4) - 2,
+				y: 594,
+				yvol: Math.random() * -2
+			});
+		}
+		function update(){
+			letters.forEach(el => {
+				el.y += el.yvol;
+				el.x += el.xvol;
+				if(el.x + el.bx < 0 || el.x + el.bx > 1300 - el.width){
+					el.xvol = el.xvol * -1;
+				}
+				if(el.y - el.by < 0 + el.height || el.y - el.by > 600){
+					el.yvol = el.yvol * -1;
+				}
+			});
+		}
+		function render(){
+			c.clearRect(0, 0, 1300, 600);
+			letters.forEach(el => {
+				c.fillText(el.cont, el.x, el.y);
+				// c.strokeRect(el.x + el.bx, el.y + -el.by, el.width + el.bx, -el.height + el.by);
+			});
+		}
+		var updateLoop = setInterval(update, 10),
+		renderLoop = setInterval(render, 10);
+	}
+	eval('hero' + (Math.floor(Math.random() * (4 - (window.innerWidth < 1300 ? 1 : 0))) + (window.innerWidth < 1300 ? 1 : 0)) + '()'); // "eval is evil", no >:(
+</script>
+</html>

@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+:root{
+	background-color: #000000;
+	--root-bg-gradient: linear-gradient(45deg, #000000, #271f16);
+	background: var(--root-bg-gradient);
+	user-select: none;
+	/* all changed by js */
+	--accent-color: #faebd7;
+	--bg-color: #00000088;
+	--bg-color-opaque: #000000;
+	--uiHeight: 40%;
+	--title-size: 11px;
+}
+::-webkit-scrollbar{
+	width: 0px;
+	height: 0px;
+	background: transparent;
+}
+@keyframes intro {
+	0%{letter-spacing: 3vh;}
+	100%{letter-spacing: 0vh;}
+}
+.mainCanvas{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background: transparent;
+	image-rendering: pixelated;
+}
+.ui{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100svw;
+	height: 100svh;
+	pointer-events: none;
+}
+.mainContainer{
+	position: absolute;
+	bottom: 0px;
+	margin: 0px;
+	padding: 0px;
+	background: var(--bg-color);
+	width: 100%;
+	height: var(--uiHeight);
+	overflow: hidden;
+	pointer-events: all;
+	outline: solid 3px var(--accent-color);
+	color: var(--accent-color);
+	display: flex;
+	align-items: center;
+}
+.horizontalSplit, .verticalSplit{
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	background: transparent;
+	border-right: solid 3px var(--accent-color);
+	height: 100%;
+	width: 100%; /* both 100% so it's evenly spaced */
+	overflow: auto;
+}
+.verticalSplit{
+	border: none;
+	border-bottom: solid 3px var(--accent-color);
+}
+.horizontalSplit:last-child, .verticalSplit:last-child, .mainContainer:last-child{
+	border: none;
+}
+.horizontalSplit:has(.verticalSplit), .verticalSplit:has(.horizontalSplit){
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.verticalSplit:has(.horizontalSplit){
+	flex-direction: row;
+}
+:is(.verticalSplit, .horizontalSplit) .data-title{
+	position: absolute;
+	background: var(--accent-color);
+	color: var(--bg-color-opaque);
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	font-size: var(--title-size);
+	overflow: hidden;
+	white-space: nowrap;
+	transition: width 0.1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}

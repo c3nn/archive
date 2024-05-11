@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>testtestestestesteste</title>
+ 
+<style>
+:root{
+	overflow: hidden;
+	background: black;
+}
+#videoElement{
+	position: absolute;
+	width: auto;
+	aspect-ratio: 1/1;
+	background: url(hhholographic.png);
+	overflow: hidden;
+	background-size: cover;
+}
+#thing{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1123123;
+	color: white;
+	font-size: 30px;
+}
+</style>
+</head>
+ 
+<body>
+<div id="container">
+	<video autoplay="true" id="videoElement">
+	
+	</video>
+</div>
+<p id="thing"></p>
+<script>
+var video = document.querySelector("#videoElement");
+
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function (stream) {
+      video.srcObject = stream;
+    })
+    .catch(function (err0r) {
+      console.log("Something went wrong!");
+    });
+}
+
+function stop(e) {
+  var stream = video.srcObject;
+  var tracks = stream.getTracks();
+
+  for (var i = 0; i < tracks.length; i++) {
+    var track = tracks[i];
+    track.stop();
+  }
+
+  video.srcObject = null;
+}
+
+window.onkeydown = function(){
+	localStorage.setItem("text", prompt());
+}
+
+video.style.height = screen.height + 'px';
+setInterval(() => {
+	video.style.left = (-window.screenLeft + screen.width/4) + 'px'
+	video.style.top = -window.screenTop + 'px'
+	document.querySelector('#thing').innerHTML = localStorage.getItem("text");
+}, 50);
+
+</script>
+</body>
+</html>

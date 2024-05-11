@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="favicon.png">
+	<link rel="canonical" href="https://c3nn.com">
+	<title>My Archive</title>
+</head>
+<body>
+	<a id="homeButton" href="/">c3nn</a>
+	<div class="mainCont">
+		<main>
+			<h1><span>My</span>Archive<span style="position: absolute; bottom: 0px; font-size: 20px; width: 100%;">By & to, me</span></h1>
+			
+			<h2>Past portfolios</h2>
+			<span data-date="July 20, 2022 - Nov 19, 2022"><a href="OG/">OG</a></span>
+			<span data-date="Nov 20, 2022 - Feb 16, 2024"><a href="barred/">barred</a></span>
+			<span data-date="Feb 17, 2024 - Today"><a href="/">Resplendent</a></span>
+			
+			<h2>Past projects</h2>
+			
+			<h3 style="margin-top: 0px;">Web development</h3>
+			<div class="inset">
+				<span><a href="https://codepen.io/c3nn">Codepen</a></span>
+				<span data-date="Sep 15, 2021"><a href="/proj/codepen/100perTextSnake/">100% Text Snake</a></span>
+				<span data-date="Mar 3, 2022"><a href="/proj/codepen/Wordle/">Wordle</a></span>
+				<span data-date="Oct 11, 2021"><a href="/proj/codepen/Sticks/">Stick</a></span>
+				<span data-date="Dec 13, 2021"><a href="/proj/codepen/circleScrollbar/">Circle Scrollbar</a></span>
+				<span data-date="Dec 14, 2021"><a href="/proj/codepen/scrollbarCubed/">Scrollbar<sup>3</sup></a></span>
+				<span data-date="Sep 9, 2021"><a href="/proj/codepen/textScrollbar/">Text Scrollbar</a></span>
+			</div>
+			<span data-date="Aug 22, 2022"><a href="/proj/toWashingmachines">toWashingmachines</a></span>
+			<span data-date="Aug 22, 2022 - Feb 16, 2023"><a href="https://osu.c3nn.com">osu!online</a></span>
+			<div class="inset">
+				<span><a href="https://stratii.c3nn.com">stratii</a></span>
+				<span data-date="Mar 25, 2023"><a href="stratii/stratii 3-25-2023/">stratii</a></span>
+				<span data-date="Apr 16, 2023"><a href="stratii/stratii 4-16-2023/">stratii</a></span>
+				<span data-date="date unknown, but is the best"><a href="stratii/stratii unknown/">stratii</a></span>
+				<span data-date="last version"><a href="stratii/stratii last version/">stratii</a></span>
+			</div>
+			<span data-date="Aug 13, 2023 - Oct 29, 2023"><a href="NOTwikipedia/">NOTwikipedia</a></span>
+			
+			<h3>Miscellaneous</h3>
+			<span data-date="Jan 27, 2023"><a href="https://www.youtube.com/watch?v=ozoGn50h_J0">Bad Apple!! in steam showcase</a></span>
+			
+			<h3>Tests</h3>
+			<span data-date="Feb 10, 2024"><a href="multiWindowSyncTest/">multiWindowSyncTest</a></span>
+		</main>
+	</div>
+</body>
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text&display=swap');
+	:root{
+		--accent: #ffd4ac;
+		--accent2: #504033;
+		--bg: #14100d;
+		background: var(--bg);
+		color: var(--accent);
+		text-align: center;
+		font-family: serif;
+		font-family: "DM Serif Text";
+	}
+	.mainCont{
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+	main{
+		width: 1280px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		/* margin-bottom: 100px; */
+		margin-bottom: 40px;
+	}
+	h1{
+		position: relative;
+		right: 23px;
+		font-size: 150px;
+		margin-top: 0px;
+	}
+	h1, #homeButton{
+		font-family: "DM Serif Display";
+		font-style: italic;
+		font-weight: normal;
+	}
+	#homeButton{
+		font-size: 30px;
+		position: fixed;
+		left: 22px;
+		bottom: 20px;
+		background: var(--bg);
+		outline: var(--bg) 1px solid;
+	}
+	@media (max-width : 480px) { /* not even going to try */
+		#homeButton::after{
+			content: " (this page is not supported on devices lower than standard definition)";
+		}
+	}
+	h1 span{
+		font-size: 38px;
+		position: relative;
+		bottom: 80px;
+		left: 35px;
+	}
+	h2{
+		margin-bottom: 5px;
+		font-size: 40px;
+	}
+	h3{
+		margin: 25px;
+		margin-bottom: 0px;
+		font-size: 25px;
+		letter-spacing: 1.5px;
+	}
+	span, a{
+		font-size: 25px;
+		font-family: "DM Serif Text";
+		color: var(--accent);
+	}
+	a{
+		text-decoration: underline wavy var(--accent2) 1px;
+	}
+	.inset{
+		display: flex;
+		flex-direction: column;
+		border-left: solid 2px var(--accent2);
+		text-align: left;
+		width: max-content;
+		margin: 10px 0px 10px 0px;
+	}
+	.inset > *:first-child{
+		border-bottom: solid 2px var(--accent2);
+	}
+	.inset > *{
+		margin-left: 10px;
+	}
+	*[data-date]::after{
+		content: '/ ' attr(data-date);
+		font-size: 14px;
+		text-align: left;
+		padding-left: 5px;
+	}
+</style>
+</html>

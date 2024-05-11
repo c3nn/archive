@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200&display=swap');
+@font-face{
+	font-family: "bahnschrift";
+	src: local("bahnschrift"), url("assets/bahnschrift.ttf");
+}
+:root{
+	background-color: #000000;
+	/* all changed by js */
+	--dark-accent-color: #121212;
+	--accent-color: #444444;
+	--bg-color: #181818;
+	--ui-border-thickness: 3px;
+	--title-size: 12px;
+	--winBarIsOpen: 0;
+	--winBarHeight: calc(25px * var(--winBarIsOpen));
+	--status-bar-height: 13px;
+	
+	background: var(--bg-color);
+	color: var(--accent-color);
+	font-family: bahnschrift;
+}
+::-webkit-scrollbar{
+	width: 0px;
+	height: 0px;
+	background: transparent;
+}
+.material-symbols-rounded{
+	font-size: auto;
+}
+
+#winBar{
+	display: flex;
+	justify-content: space-between;
+	position: fixed;
+	width: 100%;
+	height: var(--winBarHeight);
+	top: 0px;
+	left: 0px;
+	background: var(--dark-accent-color);
+	color: var(--accent-color);
+	backdrop-filter: blur(10px);
+	z-index: 99998;
+	transition: top 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+#winBar div{
+	display: flex;
+}
+.winButton{
+	width: calc(var(--winBarHeight) * 1.5);
+	height: var(--winBarHeight);
+	background: #000000;
+	overflow: hidden;
+	pointer-events: all;
+	background: transparent;
+	transition: background 0.2s ease, color 0.2s ease, top 0.2s ease;
+	border: none;
+	color: var(--accent-color);
+	font-size: calc(var(--winBarHeight) * 0.9) !important;
+}
+.winButton:hover{
+	background: var(--accent-color);
+	color: var(--bg-color);
+}
+
+@keyframes intro {
+	0%{letter-spacing: 3vh;}
+	100%{letter-spacing: 0vh;}
+}
+@keyframes introMid {
+	0%{letter-spacing: 0vh;}
+	100%{letter-spacing: -1vh;}
+}
+@keyframes introEnd {
+	0%{letter-spacing: -1vh;}
+	100%{letter-spacing: 0vh;}
+}
+.mainCanvas{
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	image-rendering: pixelated;
+	user-select: none;
+}
+.ui{
+	display: flex;
+	position: absolute;
+	left: 0px;
+	bottom: var(--status-bar-height);
+	width: 100%;
+	height: calc(100svh - var(--winBarHeight) - var(--status-bar-height));
+	transition: height 0.3s ease, width 0.3s ease;
+	margin: 0px;
+	padding: 0px;
+	background: var(--bg-color);
+	overflow: hidden;
+	pointer-events: all;
+	flex-direction: column;
+	align-items: center;
+}
+.statusBar{
+	position: absolute;
+	display: flex;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+	height: var(--status-bar-height);
+	overflow: hidden;
+	background: var(--dark-accent-color);
+	color: var(--accent-color);
+	font-size: var(--status-bar-height);
+	justify-content: space-between;
+	align-items: center;
+}
+.hSplit, .vSplit{
+	position: relative;
+	margin: 0px;
+	padding: 0px;
+	background: transparent;
+	border-right: solid var(--ui-border-thickness) var(--dark-accent-color);
+	height: 100%;
+	width: 100%; /* both 100% so it's evenly spaced */
+	overflow: auto;
+	padding-left: 2px;
+}
+.vSplit{
+	border: none;
+	border-bottom: solid var(--ui-border-thickness) var(--dark-accent-color);
+}
+.hSplit:last-child, .vSplit:last-child, .mainContainer:last-child{
+	border: none;
+}
+.hSplit:has(.vSplit), .vSplit:has(.hSplit){
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0px;
+	overflow: hidden;
+}
+.vSplit:has(.hSplit){
+	flex-direction: row;
+}
+:is(.vSplit, .hSplit) .data-title{
+	position: absolute;
+	background: var(--dark-accent-color);
+	color: var(--accent-color);
+	left: 0px;
+	bottom: 0px;
+	width: 100%;
+	font-size: var(--title-size);
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	transition: width 0.1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+:is(.vSplit, .hSplit):has(> .flex) .data-title{
+	height: calc(50% - 36px);
+	font-size: calc(var(--title-size) * 1.5);
+}
+:is(.vSplit, .hSplit) .indent{
+	border-left: solid var(--ui-border-thickness) var(--accent-color);
+	padding-left: 2px;
+}
+:is(.vSplit, .hSplit) span{
+	font-size: 20px;
+}
+:is(.vSplit, .hSplit) .transparentSpan{
+	color: var(--accent-color);
+	font-family: JetBrains mono;
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+}
+:is(.vSplit, .hSplit) .flex{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+:is(.vSplit, .hSplit) .flex :is(.playbackButton,.playbackInput){
+	width: 100px;
+	height: auto;
+	background: transparent;
+	color: var(--accent-color);
+	border: none;
+	font-size: 70px;
+	text-shadow: 0px 0px 2px var(--accent-color);
+	transition: text-shadow 0.1s ease-out;
+}
+:is(.vSplit, .hSplit) .flex .playbackButton:hover{
+	text-shadow: 0px 0px 10px var(--accent-color);
+}
+:is(.vSplit, .hSplit) .flex :is(.playbackButton,.playbackInput):first-child{
+	text-align: right;
+	width: 100%;
+}
+:is(.vSplit, .hSplit) .flex :is(.playbackButton,.playbackInput):last-child{
+	text-align: left;
+	width: 100%;
+}
+:is(.vSplit, .hSplit) .flex .playbackInput{
+	font-size: 20px;
+	direction: rtl;
+	text-decoration: underline;
+}

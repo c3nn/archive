@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>osu!online</title>
+	<link rel="icon" type="image/x-icon" href="assets/miniLogo.png">
+	<link rel="stylesheet" href="index.css">
+</head>
+<body>
+	<div id="loadingElement" style="position: fixed; z-index: 99999; width: 100%; height: 100vh; background: #000000; color: #faebd7; text-align: center; padding-top: 46.5vh; font-size: 6vh;">hold up a minute it's loading<br><span style="position: relative; color: #514f4d; font-size: 3vh; top: -2.8vh;">(or it broke)</span></div>
+	<div class="centerX centerY">
+		<img id="playBg" src="assets/testBg.jpg" alt="playfield background">
+	</div>
+	<div id="play">
+		<div class="centerX">
+			<canvas id="playfield" width="400" height="300"></canvas>
+		</div>
+	</div>
+	<div id="songSelect">
+		<button class="backButton" onclick="updateScene('start')">Back</button>
+		<div id="songScrollCont">
+			<div class="songItem"></div>
+		</div>
+	</div>
+	<div id="start">
+		<img id="startBg" src="assets/testStartBg.jpg" alt="start menu background">
+		<div class="centerX centerY">
+			<div id="logoButtonContainer" class="logoButtonContainerIn">
+				<button class="logoButton" style="--deg:10deg; left: -1.1vh;" onclick="updateScene('songSelect'); closeStartMenu(); closeOptions();">
+					<div style="--deg:-17deg">Play</div>
+				</button>
+				<button class="logoButton" onclick="openOptions();">
+					<div style="--deg:-7deg">Options</div>
+				</button>
+				<button class="logoButton" style="--deg:-10deg; left: -1.1vh;" onclick="window.close(); window.open('https://see_you_next_time', '_top');">
+					<div style="--deg:3deg">Exit</div>
+				</button>
+			</div>
+		</div>
+		<div id="logoContainer" class="centerX centerY" style="pointer-events: none; transition: all cubic-bezier(0.6,1.5,1,1) 0.3s;">
+			<div id="logoBg" class="logoBg" style="pointer-events: auto;" onclick="if(d.querySelector('#logoButtonContainer').className == 'logoButtonContainer'){updateScene('songSelect'); closeStartMenu(); closeOptions();}else{openStartMenu();}">
+				<p class="logoText">osu!</p>
+				<img class="logoOnlineText" src="assets/onlineLogo.svg" alt="online image">
+			</div>
+		</div>
+		<div id="topMiniMenu" class="miniMenu topMiniMenu">
+			
+		</div>
+		<div id="botMiniMenu" class="miniMenu botMiniMenu">
+			<div class="ppyLogo" onclick="window.location = 'https://osu.ppy.sh';">
+				<img style="height: 100%;" src="assets/ppyLogo.svg">
+				<div><t>ppy powered 2007-2022<br><span style="font-weight: 100;">osu.ppy.sh</span></t></div>
+			</div>
+			<div class="conmannLogo" onclick="window.location = 'https://g.dev/DCD';" onmouseover="d.querySelector('#conmannLogo').src = 'assets/conmannLogoHover.svg';" onmouseout="d.querySelector('#conmannLogo').src = 'assets/conmannLogo.svg';">
+				<img id="conmannLogo" style="height: 100%;" src="assets/conmannLogo.svg">
+				<div><t>Conmann</t><br><span style="font-weight: 100;">g.dev/DCD</span></t></div>
+			</div>
+		</div>
+	</div>
+	<div id="options">
+		<h1>Options</h1>
+		<div id="optionsSidebar"></div>
+		<input type="file" name="Import" id="fileImport" accept=".osu" multiple>
+	</div>
+	<div id="errMsgBox"></div>
+</body>
+<script src="index.js"></script>
+</html>
