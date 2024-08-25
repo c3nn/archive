@@ -1,0 +1,25 @@
+/* 
+ScrollBar Levels
+1. Red
+2. Green
+3. Blue
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
+*{
+    margin: 0px;
+}
+:root{
+    background: black;
+    font-family: Comfortaa;
+}
+#canvas{
+    position: fixed;
+    right: 2px;
+    top: 0px;
+}
+.scrollText{
+    color: white;
+    font-size: 100px;
+    margin: 120px;
+}

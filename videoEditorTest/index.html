@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Video Editor Test</title>
+	<link rel="stylesheet" href="index.css">
+</head>
+<body>
+	<div id="mainCont">
+		<div id="titleBar">
+			<button id="winTab0" class="windowTab" style="--_num: 0;">Assets</button>
+			<button id="winTab1" class="windowTab" style="--_num: 1;">Editor</button>
+			<button id="winTab1" class="windowTab" style="--_num: 2;">dev playground</button>
+		</div>
+		<main style="--_winNum: 0;" id="assetsWin">
+			<div class="pane">
+				<div class="pane h">
+					<div class="fileExplorerCont">
+						<header>
+							<h1>File Library <small>click to preview</small></h1>
+							<div class="actionButtonsCont">
+								<button class="addFilesButton symbol" title="Import Media">add_photo_alternate</button>
+								<button class="refreshButton symbol" title="Refresh">refresh</button>
+							</div>
+						</header>
+						<div class="fileExplorer" data-set-preview>
+							<!-- cleared by js-->
+							<span style="display: flex;width: 100%;height: 100%;justify-content: center;align-items: center;text-align: center;">
+								<small>
+									nothing yet :3<br>
+									just tap the icon up there<br>
+									to add some files
+								</small>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="pane h">
+					<div class="pane v">
+						<div id="previewCont">
+							
+						</div>
+					</div>
+					<div class="pane v">
+						<header>
+							<h1>Properties</h1>
+						</header>
+						<p id="propertiesCont"></p>
+					</div>
+				</div>
+			</div>
+		</main>
+		<main style="--_winNum: 1;" id="editorWin">
+			<div class="pane">
+				<div class="pane v">
+					<div class="pane h">
+						quick assets
+					</div>
+					<div class="pane h" data-noGrow>
+						<canvas id="previewCanvas" width="1920" height="1080"></canvas>
+					</div>
+					<div class="pane h" data-width style="--_width: var(--sizing-300);">
+						object positioning and visual properties
+					</div>
+				</div>
+				<div class="pane v">
+					<div class="pane h" data-width style="--_width: var(--sizing-300);">
+						object time properties
+					</div>
+					<div class="pane h" data-width style="--_width: var(--sizing-200);">
+						Layers (or not, just add them into the right one)
+					</div>
+					<div class="pane h">
+						Timeline
+					</div>
+				</div>
+			</div>
+		</main>
+		<main style="--_winNum: 2;" id="devWin">
+			<button id="testB">button</button>
+			<!-- <input type="button" value="test" > -->
+			<!-- <canvas id="testCanvas" width="1920" height="1080" style="border: solid 1px white;"></canvas> -->
+		</main>
+		<div id="statusBar">
+			<div id="progressBarCont">
+				<!-- JS puts progress bars here -->
+			</div>
+			<span id="logo" class="Small">covea</span>
+		</div>
+	</div>
+	
+	<script type="module" src="index.js"></script>
+</body>
+</html>

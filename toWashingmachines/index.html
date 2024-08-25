@@ -1,0 +1,187 @@
+<!-- made by codepen.io/Conmann -->
+<!-- washing mashine: 37.5 in - 3.125 ft -->
+<!DOCTYPE html>
+<html>
+    <head><title>toWashingmachines</title></head>
+    <img class="copyleft" src="assets/Copyleft.png" alt="copyleft">
+    <a class="fbg" href="https://fonts.google.com">Fonts By Google</a>
+    <div class="title">
+        <a id="mainText" class="text1" href="/">to Washing Machines</a>
+        <!-- <a id="secondText" class="text2" href="/">.com</a> -->
+        <p>Convert to the national measurement of the United States.</p>
+    </div>
+    <div class="main">
+        <div>
+            <input class="input" id="input" placeholder="meters" type="number" onchange="recalculate(this.value)" oninput="recalculate(this.value)">
+            <select name="input type" id="type" onchange="refresh(this.value)" oninput="refresh(this.value)">
+<!--                 <option value="feet">Feet</option> -->
+                <option value="meters">Meters</option>
+                <option value="kilometers">Kilometers</option>
+                <option value="centimeters">Centimeters</option>
+                <option value="milimeters">Milimeters</option>
+                <option value="micrometers">Micrometers</option>
+            </select>
+        </div>
+        <t class="output">~<span id="outputMeters"></span> washing machines</t>
+    </div>
+    <t class="notSupported">mobile is not supported :(</t>
+</html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
+    input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+    *{
+        background-color: var(--background);
+        color: var(--primary);
+    }
+    :root{
+        --background:#0a0a0a;
+        --primary:#d6d6d6;
+        --secondary:#d6d6d6;
+        --thirdendary:#7c7c7c; /*idk ok*/
+    }
+    .title p{
+        position: relative;
+        top: -10px;
+        font-size: 15px;
+        font-family: Roboto;
+    }
+    .fbg, .copyleft{   
+        position: absolute;
+        font-family: Roboto;
+        font-size: 12px;
+        left: 2px;
+        bottom: 1px;
+    }
+    .copyleft{
+        bottom: 20px;
+        width: 23px;
+    }
+    .largerFont{
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        margin: 0px;
+        font-size: 20px;
+        font-family: Arial;
+        transition: all 0.5s;
+        cursor: pointer;
+    }
+    .largerFont:hover{
+        font-size: 100px;
+    }
+    .title{
+        position: absolute;
+        width: 99%;
+        text-align: center;
+        padding-top: 50px;
+    }
+    .title a{
+        font-family: Roboto;
+        text-decoration: none;
+    }
+    .title .text1{
+        font-size: 55px;
+        transition: all 0.5s;
+    }
+    .title .text1:hover{
+        font-size: 70px;
+    }
+    .title .text2{
+        font-style: italic;
+        font-size: 30px;
+    }
+    .main{
+        display: flex;
+        position: absolute;
+        justify-content: space-around;
+        width:  99%;
+        top:  50%;
+    }
+    .input{
+        background-color: var(--background);
+        border-style: solid;
+        border-color: var(--primary);
+        height: 60px;
+        border-width: 1px;
+        border-radius: 28px;
+    }
+    .output, span, .input{
+        font-family: Montserrat;
+        font-size: 30px;
+    }
+    .notSupported{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        color: var(--background);
+        font-size: 90%;
+    }
+    @media screen and (max-width: 700px){
+        .notSupported{
+            color: var(--primary);
+        }
+    }
+    select{
+        color: var(--background);
+        --size: 18px;
+        border-width: 1px;
+        width: var(--size);
+        height: var(--size);
+        border-radius: calc(var(--size) / 2);
+    }
+    option{
+        /* font-family: ; */
+        width: 400px;
+        font-size: 20px;
+    }
+    option:checked{
+        background-color: var(--primary);
+        color: var(--background);
+    }
+</style>
+<script>
+    // Aug.2.2022 // The code below is old and sucks but I dont care to fix it
+
+    var type = "meters";
+
+    function recalculate(valNum) {
+		val = window[type](valNum);
+        document.getElementById("outputMeters").innerHTML = (Math.round(val*100)/100 < 1?val:Math.round(val*100)/100); // runs the function that is named after the string
+        
+        if(valNum == "7776667770777666777"){ // if the egg was found
+            document.getElementById("outputMeters").innerHTML = "cash money!!!1!!";
+        }
+    }
+
+    function refresh(valNum){
+        type = valNum; // sets type to curently selected value
+        document.getElementById("input").placeholder = type; // sets the input placholder text to curent type
+    }
+    // sets the output to the value / (the equation)
+    function feet(valNum) {
+        return valNum / 3.125;
+    }
+    function meters(valNum){
+        return valNum / 0.9525;
+    }
+    function kilometers(valNum){
+        return valNum / 0.0009525;
+    }
+    function centimeters(valNum){
+        return valNum / 95.25;
+    }
+    function milimeters(valNum){
+        return valNum / 952.5;
+    }
+    function micrometers(valNum){
+        return valNum / 952500;
+    }
+</script>

@@ -1,0 +1,369 @@
+@import url('assets/materialSymbolsOutline.css');
+@font-face {
+	font-family: 'FirstPlace';
+	/* src: url('assets/AIFRAGME.TTF'); */
+	src: url('assets/FirstPlace.ttf');
+}
+@font-face {
+	font-family: 'DM Serif Display';
+	/* src: url('assets/AIFRAGME.TTF'); */
+	src: url('assets/DMSerifDisplay-Italic.ttf');
+}
+@font-face {
+	font-family: 'Recursive';
+	/* src: url('assets/AIFRAGME.TTF'); */
+	src: url('assets/Recursive-VariableFont.ttf');
+	font-variation-settings: "CRSV" 0.5, "CASL" 0.4, "wght" 400, "slnt" -10, "CRSV" 1;
+}
+
+:root{
+	/*
+		trying to unify the design of the whole thing,
+		if you can, try and use these standards
+	*/
+	--err-red: #ff0000;
+	--err-red-bg: #630000;
+	--bg: #131313;
+	--bg-light: ;
+	--bg-light-accent-mix: #3b547d;
+	--bg-dark: #0a0a0a;
+	--accent: #105dd9;
+	--text: #f5f5f5;
+	--text-dark: #afafaf;
+
+	--anim-length-0: ;
+	--anim-length-1: 0.3s;
+
+	--cubic-ease: cubic-bezier(.23,.84,.46,1);
+
+	--border-rad-0: 3px;
+	--border-rad-1: 6px;
+	--border-rad-2: 8px;
+
+	--text-size-logo-0: 30px;
+
+	--text-size-12: 12px;
+	--text-size-24: 24px;
+
+	--padding-0: 2px;
+	--padding-1: 4px;
+	--padding-2: ;
+	--padding-3: 10px;
+
+	--sizing-50: 50px;
+	--sizing-100: 100px;
+	--sizing-200: 200px;
+	--sizing-300: 300px;
+
+	--titleBarSize: 32px;
+	--statusBarSize: 18px;
+
+	--openWinNum: 1;
+	--projectWidth: 0;
+	--projectHeight: 0;
+	background: var(--bg-dark);
+	color: var(--text);
+	font-family: "Recursive";
+}
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+/* body{
+	background-image: linear-gradient(89.7deg, rgba(223,0,0,1) 2.7%, rgba(214,91,0,1) 15.1%, rgba(233,245,0,1) 29.5%, rgba(23,255,17,1) 45.8%, rgba(29,255,255,1) 61.5%, rgba(5,17,255,1) 76.4%, rgba(202,0,253,1) 92.4%);
+	background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+} */
+
+#logo.Small{
+	font-family: "FirstPlace";
+	color: var(--bg);
+	font-size: var(--text-size-logo-0);
+	letter-spacing: -2px;
+	cursor: default;
+}
+
+#mainCont{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	background: transparent;
+}
+main{
+	position: absolute;
+	top: var(--titleBarSize);
+	left: calc((var(--openWinNum) - var(--_winNum))*-100%);
+	width: 100%;
+	height: calc(100% - var(--titleBarSize) - var(--statusBarSize));
+	overflow: hidden;
+	transition: left var(--anim-length-1) var(--cubic-ease);
+}
+#titleBar,#statusBar{
+	position: absolute;
+	top: 0px;
+	background: var(--bg-light-accent-mix);
+	width: 100%;
+	height: var(--titleBarSize);
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: start; /* not in status bar */
+}
+#titleBar{
+	.windowTab{
+		background: var(--bg);
+		border: none;
+		padding: 0px var(--padding-3) 0px var(--padding-3);
+		margin-left: var(--padding-0);
+		height: calc(100% - var(--padding-0));
+		align-self: flex-end;
+		border-radius: var(--border-rad-1) var(--border-rad-1) 0px 0px;
+		color: color-mix(in srgb, var(--text-dark) calc(abs((var(--openWinNum) - var(--_num))) * 100%), white);
+		transition: color var(--anim-length-1) var(--cubic-ease);
+	}
+}
+#statusBar{
+	top: auto;
+	bottom: 0px;
+	background: transparent;
+	height: var(--statusBarSize);
+	overflow: hidden; /* might want pop ups and stuff
+	so when it doesn't work, this is why */
+	justify-content: center;
+
+	#progressBarCont{
+		position: absolute;
+		display: flex;
+		gap: var(--padding-0);
+		left: var(--padding-1);
+		height: 100%;
+		background: transparent;
+		
+		.progressBar{
+			width: var(--sizing-100);
+			height: calc(100% - var(--padding-1));
+			border-radius: var(--border-rad-1);
+			margin: 0px 0px var(--padding-0);
+			background: var(--bg);
+			overflow: hidden;
+
+			.fill{
+				height: 100%;
+				width: calc(var(--_progress) * 100%);
+				background-color: #105dd9;
+			}
+		}
+	}
+}
+.example::-webkit-scrollbar{ /* Chrome, Safari */
+	display: none;
+}
+*{
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
+}
+
+main{
+	background: transparent;
+	box-sizing: border-box;
+	padding: var(--padding-1);
+	padding-bottom: var(--padding-0);
+	
+	.pane{
+		position: relative;
+		height: 100%;
+		width: 100%;
+		flex: 0 1 auto;
+		overflow: hidden;
+		&:has(> .pane){
+			display: flex;
+			&:has(> .h){
+				flex-direction: row;
+			}
+			&:has(> .v){
+				flex-direction: column;
+			}
+		}
+		&:not(:has(> .pane)){
+			background: var(--bg);
+			border: transparent 0px solid;
+			border-radius: var(--border-rad-2);
+
+			& header{
+				width: 100%;
+			}
+		}
+		&:not(:last-child){
+			&.v{
+				margin-bottom: var(--padding-1);
+			}
+			&.h{
+				margin-right: var(--padding-1);
+			}
+		}
+		&[data-width]{
+			flex-shrink: 0;
+			width: var(--_width);
+		}
+		&[data-height]{
+			flex-shrink: 0;
+			width: var(--_height);
+		}
+		&[data-noGrow]{
+			flex-grow: 0;
+		}
+	}
+}
+
+h1{
+	font-family: 'DM Serif Display';
+	font-weight: lighter;
+	color: var(--text-dark);
+	padding: var(--padding-0);
+}
+small{
+	font-family: 'Recursive';
+	font-weight: normal;
+	color: var(--text-dark);
+	padding: var(--padding-0);
+	font-size: var(--text-size-12);
+}
+
+#editorWin{
+	.pane:has(> #previewCanvas){
+		flex-shrink: 0;
+		width: fit-content;
+		background-image: url("assets/transparentTileBg.png");
+	}
+	#previewCanvas{
+		height: 100%;
+	}
+}
+
+#assetsWin{
+	.fileExplorerCont{
+		display: flex;
+		flex-direction: column;
+		width: 100%;	
+		height: 100%;
+
+		& header{
+			position: relative;
+			
+			.actionButtonsCont{
+				display: flex;
+				position: absolute;
+				right: 0px;
+				top: 0px;
+				width: fit-content;
+				height: 100%;
+				margin-right: var(--padding-3);
+				
+				& button{
+					margin-left: var(--padding-1);
+				}
+			}
+		}
+
+		.fileExplorer{
+			border-radius: var(--border-rad-1);
+			margin: var(--padding-1);
+			padding: var(--padding-0);
+			overflow: auto;
+			height: 100%;
+			background: var(--bg-dark);
+			
+			& > li{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: var(--padding-1);
+
+				&:hover{
+					background: var(--bg);
+				}
+
+				& > button{
+					display: flex;
+					justify-content: left;
+					align-items: center;
+					gap: var(--padding-3);
+					width: 100%;
+					padding: 0px var(--padding-1) 0px var(--padding-1);
+					background: transparent;
+
+					& img{ /* so long weirdly sized previews aren't broken */
+						width: var(--sizing-100);
+						min-height: var(--sizing-50);
+						max-height: var(--sizing-300);
+					}
+
+					& span{
+						width: var(--sizing-50);
+					}
+
+					& span:first-of-type{ /* so long names don't overflow */
+						text-align: left;
+						width: var(--sizing-200);
+						overflow-x: hidden;
+					}
+				}
+
+				.actionsCont{
+					display: none;
+				}
+				&:hover .actionsCont{
+					display: flex;
+				}
+			}
+		}
+	}
+
+	#previewCont{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+		background: transparent;
+
+		& img, video{
+			max-width: 100%;
+			max-height: 100%;
+		}
+	}
+	.pane:has(> p#propertiesCont){
+		display: flex;
+		flex-direction: column;
+
+		& p#propertiesCont{
+			height: 100%;
+			width: 100%;
+			overflow: auto;
+			color: var(--text);
+			text-wrap: nowrap;
+		}
+	}
+}
+
+button{
+	background: var(--bg-dark);
+	border: none;
+	border-radius: var(--border-rad-0);
+	color: var(--text-dark);
+	cursor: pointer;
+
+	&:hover{
+		color: var(--text);
+	}
+
+	&.symbol{
+		background: none;
+		font-size: var(--text-size-24);
+		border-radius: 0px;
+	}
+}

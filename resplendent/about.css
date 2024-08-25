@@ -1,0 +1,40 @@
+#me{
+	position: relative;
+	background: url(a/meWithShades.png) no-repeat;
+	background-position: 0% calc((var(--ScrollY) * 0.2) * 1px);
+    transition: background-position 0s linear; /* gpu acceleration */
+	background-size: contain;
+
+	height: calc(.6 * var(--mw));
+	text-align: left;
+	border-bottom: solid var(--accent1) 20px;
+	border-radius: 0 0 10% 1%;
+
+	& h2{
+		position: absolute;
+		bottom: 0;
+		line-height: 0.5em;
+		left: 30%;
+		font-size: calc(.2 * var(--mw));
+		text-shadow: 0 0 20px #000000;
+
+		& span{
+			font-size: 0.6em;
+			padding-left: 1.7em;
+		}
+	}
+}
+
+section{
+	&:has(.split){
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+	.split{
+		--w: 50%;
+		height: 100%;
+		width: var(--w);
+	}
+}

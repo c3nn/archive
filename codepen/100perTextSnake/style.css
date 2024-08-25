@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
+*{
+    padding-top: 3vh;
+    font-family: Nanum Gothic Coding;
+    text-align: center;
+    color: whitesmoke;
+    margin: 0px;
+    font-size: 8vh;
+    line-height: 5vh;
+    letter-spacing: -2.98vh;
+    cursor: default;
+}
+.score{
+    position: absolute;
+    top: 20px;
+    right:20px;
+    letter-spacing: 1px;
+    font-size: 6vh;
+}
+:root{
+    background-color: black;
+}
+.debug{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+.debug p{
+    text-align: left;
+    font-size: 3vh;
+    letter-spacing: 1px;
+    line-height: 0.1vh;
+}

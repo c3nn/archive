@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+::-webkit-scrollbar{
+	width: 0px;
+	height: 0px;
+}
+:root{
+	background: black;
+}
+*{
+	margin: 0px;
+	padding: 0px;
+	font-family: Work Sans;
+	color: white;
+}
+.background{
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	top: 0px;
+	left: 0px;
+	background: linear-gradient(45deg, #21002b, #2e0c00, #002606);
+}
+#center, .center{
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 100vh;
+}
+.center{
+	position: fixed;
+	align-items: center;
+}
+.board{
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
+	width: 560px;
+	height: fit-content;
+	background: rgba(100,100,100,0.1);
+}
+.line{
+	display: flex;
+	justify-content: left;
+	margin-top: 10px;
+}
+.empty,.no,.notSpot,.onSpot{
+	width: 100px;
+	height: 100px;
+	margin-left: 10px;
+	text-align: center;
+	font-size: 85px;
+	outline: solid 1px grey;
+}
+.no, .kbno{ background: #464646 !important; }
+.notSpot, .kbnotspot{ background: #a16421 !important; }
+.onSpot, .kbspot{ background: #378f1b !important; }
+#controls{
+	position: fixed;
+	background: rgba(100,100,100,0.1);
+	width: 100px;
+	height: 100vh;
+}
+#controls input{
+	background: none;
+	border: none;
+}
+#controls button{
+	background: none;
+	width: 100px;
+	border: solid 1px grey;
+	cursor: pointer;
+	transition: all 0.1s;
+}
+#controls #makeButton:hover{
+	border: solid 5px grey;
+}
+#controls #makeButton:focus{
+	border: solid 5px #378f1b;
+}
+#controls #unsaved{
+	position: fixed;
+	bottom: 5px;
+	font-size: 11px;
+	color: red;
+	display: none;
+}
+.keyboard{
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	right: calc(50% - 520px);
+	bottom: calc(50vh - 34px);
+	width: 222px;
+	height: 68px;
+}
+.kbline{
+	display: flex;
+	flex-direction: row;
+}
+.kbkey, #enter, .kbspot, .kbnotspot, .kbno{
+	background: rgba(100,100,100,0.1);
+	border: solid 1px grey;
+	width: 20px;
+	height: 20px;
+	margin-left: 2px;
+	margin-top: 2px;
+	text-align: center;
+	text-justify: center;
+}
+#enter{
+	display: none;
+	width: 43px;
+	font-size: 14px;
+	padding-top: 2px;
+}
+#delete{
+	display: none;
+	position: fixed;
+	right: calc(50% - 167px);
+	bottom: 25px;
+	width: 72px;
+	height: 20px;
+	transform: rotate(90deg);
+	border: none;
+	border-bottom: solid 1px grey;
+	background: rgba(0,0,0,0.75);
+	cursor: pointer;
+}
+@media (max-width: 1035px){
+	.keyboard{
+		right: calc(50% - 500px);
+	}
+}
+@media (max-width: 996px){
+	.keyboard{
+		right: calc(50% - 121px);
+		bottom: 0px;
+		background: rgba(0,0,0,0.75);
+		height: 72px;
+	}
+	.kbkey{
+		cursor: pointer;
+	}
+	#enter{
+		display: block;
+		cursor: pointer;
+	}
+	#delete{
+		display: block;
+	}
+}
+.popup{
+	text-align: center;
+	width: 250px;
+	height: 100px;
+	background: rgb(70,70,70);
+	border: solid 2px grey;
+}
+.restart{
+	background: whitesmoke;
+	width: 100px;
+	height: 30px;
+	font-size: 22px;
+	color: black;
+	text-align: center;
+	margin-left: 75px;
+	margin-top: 15px;
+	cursor: pointer;
+}

@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
+
+:root{
+    background: black;
+    font-family: Comfortaa;
+}
+
+#canvas{
+    position: fixed;
+    top: 2px;
+    left: 2px;
+    transform: rotate(-72deg);
+/*     transform: rotate(-90deg); */
+}
+.scrollText{
+    color: white;
+    font-size: 100px;
+    margin: 120px;
+}

@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
+
+:root{
+    background: yellowgreen;
+}
+*{
+    margin: 0px;
+}
+.stick{
+    width: 40px;
+    height: 40vh;
+    background: #49311d;
+    border: solid black 4px;
+    border-radius: 25px;
+    transition: all 0.2s;
+}
+.blue, .red{
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 10vh;
+    left: 0px;
+    bottom: 0px;
+    justify-content: space-evenly;
+    align-items: center;
+    background: blue;
+    transition: all 0.2s;
+    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.5);
+}
+.red{
+    top: 0px;
+    background: red;
+}
+.handContainer{
+    display: flex;
+    justify-content: center;
+    width: 245px;
+}
+.hand{
+    display: flex;
+    height: 40vh;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background: yellowgreen;
+    border: solid yellowgreen 6px;
+    cursor: pointer;
+}
+.hand:hover > .stick{
+    height: 50vh;
+}
+.splitBlue, .splitRed{
+    z-index: 20;
+    display: none;
+    position: fixed;
+    bottom: 10vh;
+    left: 0px;
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    transition: all 0.5s;
+}
+.splitRed{
+    top: 10vh;
+}
+.splitItem{
+    display: none;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: solid black 2px;
+    border-radius: 20px;
+    font-size: 25px;
+    font-family: Nanum Gothic;
+    transition: all 0.2s;
+    margin-left: 10px;
+}
+.splitItem:hover{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+.empty{
+    width: 40px;
+    height: 9vh;
+    background: yellowgreen;
+    border: solid yellowgreen 4px;
+}
+.wonBackground{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    height: 75vh;
+    width: 100%;
+    left: calc(100% * -1);
+    background-color: white;
+    font-family: Rampart One;
+    text-align: center;
+    transition: all 0.4s;
+}
+.won{
+    text-align: center;
+    font-size: 30vh;
+}
+.retry{
+    height: 20vh;
+    width: 20vh;
+    cursor: pointer;
+    transition: all 0.7s;
+}
+.retry:hover{
+    transform: rotate(360deg);
+}

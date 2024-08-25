@@ -1,0 +1,315 @@
+:root{
+	--HeroScrollPer: 0;
+	--backgroundYOffset: 112vh;
+}
+
+/** Lines */
+#linesCont{
+	--_contHeight: calc(70svh - (30svh * var(--HeroScrollPer)));
+}
+
+/** Hero */
+@keyframes h1SpanAnimation {
+	0%{bottom: 0;}
+	50%{bottom: calc(0.005 * var(--mw));}
+	100%{bottom: 0;}
+}
+#hero{
+	display: flex;
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	align-items: center;
+	justify-content: center;
+
+	& h1{
+		font-size: calc(0.2*var(--mw));
+		text-align: center;
+		font-family: 'Lobster', sans-serif;
+		font-style: italic;
+		font-weight: 100;
+		margin: 0;
+		cursor: default;
+		opacity: 0.8;
+		color: var(--bg);
+		-webkit-text-stroke: 2px var(--text);
+		text-stroke: 2px var(--text);
+
+		& span{
+			font-size: auto;
+			position: relative;
+			transition: text-shadow ease 0.25s, color ease 0.15s;
+			animation: h1SpanAnimation 1.4s infinite ease;
+			animation-delay: calc(0.14s * var(--n));
+		}
+
+		.atText{
+			font-size: 30%;
+		}
+
+		.atSymbol:hover{
+			color: var(--accent1);
+			text-shadow: 0 0 30px var(--accent1);
+		}
+	}
+}
+/* written so that both light up together */
+#hero h1:has(.n1:hover) .n1{ color: var(--rgb0); text-shadow: 0 0 30px var(--rgb0); }
+#hero h1:has(.n2:hover) .n2{ color: var(--rgb4); text-shadow: 0 0 30px var(--rgb4); }
+#hero h1:has(.n3:hover) .n3{ color: var(--rgb3); text-shadow: 0 0 30px var(--rgb3); }
+
+#heroBg{
+	position: absolute;
+	top: 0;
+	/* top: calc(var(--ScrollY) / 2 * (0.001 * var(--mw)); */
+	/* opacity: calc(1	 - var(--HeroScrollPer)); */
+	left: 0;
+	width: 100%;
+	height: calc(100svh + (0.1 * var(--mw)));
+	z-index: -1;
+
+	.fade{
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: calc(0.1 * var(--mw));
+		background: linear-gradient(180deg, transparent, var(--bg));
+	}
+}
+#heroBgCanvas{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+@keyframes heroInfoFade {
+	from{opacity: calc(10 - var(--ScrollY));}
+	to	{opacity: 0;}
+}
+@keyframes heroInfoBelowArrowBounce {
+	0%{bottom: 0;}
+	50%{bottom: calc(0.008 * var(--mw));}
+	100%{bottom: 0;}
+}
+@keyframes heroInfoMenuArrowBounce {
+	0%{left: 0;}
+	50%{left: calc(0.008 * var(--mw));}
+	100%{left: 0;}
+}
+#heroInfoBelow, #heroInfoMenu{
+	pointer-events: none;
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	animation: heroInfoFade 10s forwards;
+
+	.symbol{
+		position: relative;
+		animation: heroInfoBelowArrowBounce 1s cubic-bezier(.3,1.5,1,.91) infinite;
+	}
+}
+#heroInfoMenu{
+	bottom: auto;
+	top: 30vh;
+	right: calc(0.08 * var(--mw));
+
+	.symbol{
+		animation-name: heroInfoMenuArrowBounce;
+	}
+}
+
+#heroAccesMenu{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 100svh;
+	gap: calc(0.005 * var(--mwt));
+	border-radius: 5318008px;
+	background: var(--bgAccent1);
+	overflow: visible;
+
+	.symbol{
+		font-size: 100%;
+	}
+}
+:root[data-contrast] * #heroAccesMenu .symbol{
+	color: var(--bgAccent0);
+}
+#heroAccesMenuMargin{
+	--_scale: 1;
+	--_mwt: calc(var(--mwt) * var(--_scale));
+	--h: calc(0.05 * var(--_mwt));
+}
+
+/* line decor */
+.lineDecor{
+	border-radius: calc(0.015 * var(--mw));
+
+	&.Left{
+		border-left: solid calc(0.01 * var(--mw)) var(--c);
+	}
+	&.Right{
+		border-right: solid calc(0.01 * var(--mw)) var(--c);
+
+		& h2{
+			text-align: right;
+			padding-right: calc(0.02 * var(--mw));
+		}
+	}
+	&.Left.Right h2{
+		text-align: center;
+	}
+}
+
+/* showcase sections */
+.iframeProjShowcase{
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	width: 100%;
+	height: var(--h, calc(0.25 * var(--mw)));
+	margin-bottom: calc(0.02 * var(--mw));
+
+	&.Right{
+		flex-direction: row-reverse;
+	}
+	&.Right .text{
+		text-align: right;
+		margin-left: 0;
+		margin-right: calc(0.01 * var(--mw));
+	}
+	.iframeCont{
+		width: 55%;
+		height: 100%;
+		border: solid calc(0.002 * var(--mw)) var(--bgAccent1);
+		border-radius: calc(0.005 * var(--mw));
+		position: relative;
+		--z: 1; /* zoom (2 = double the resolution) */
+
+		& iframe{
+			position: absolute;
+			/** x */
+			--posFix: calc(((((var(--z) * 100) / 2) * -1) + 50) * 1%);
+			scale: calc(1 / var(--z));
+			width: calc(var(--z) * 100%);
+			height: calc(var(--z) * 100%);
+			left: var(--posFix);
+			top: var(--posFix);
+		}
+		.zoomCont{
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			width: 15%;
+			height: 10%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-right: 1%;
+			margin-bottom: 1%;
+
+			& input{
+				height: 100%;
+				width: 100%;
+				background: #00000020;
+				/* background-image: url('a/materialSymbols[-/+].svg'); */
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+				backdrop-filter: blur(3px);
+				-webkit-backdrop-filter: blur(3px);
+				border: none;
+			}
+
+			.minus{
+				border-radius: 20% 0 0 20%;
+				background-image: url('a/materialSymbolsRemove.svg');
+			}
+
+			.plus{
+				border-radius: 0 20% 20% 0;
+				background-image: url('a/materialSymbolsAdd.svg');
+			}
+		}
+	}
+	.text{
+		position: relative;
+		top: calc(-0.005 * var(--mw));
+		margin-left: calc(0.01 * var(--mw));
+		width: 45%;
+		height: auto;
+
+		& h2{
+			margin-bottom: 0;
+		}
+
+		.dateMade{
+			margin-top: 0;
+		}
+	}
+
+}
+
+/* scrollbar^3 text scrolling effect */
+@keyframes scrollbarCubedSpan {
+	from{left: -50%;}
+	to	{left: 100%;}
+}
+#scrollbarCubed{
+	position: relative;
+	overflow: hidden;
+
+	&:after{
+		content: "............................................";
+		color: transparent;
+	}
+
+	& span{
+		--_items: 3;
+		--_time: 8s;
+		text-wrap: nowrap;
+		position: absolute;
+		top: 0;
+		animation: scrollbarCubedSpan var(--_time) infinite linear;
+		animation-delay: calc((var(--_time) / var(--_items)) * var(--n) * -1);
+	}
+}
+
+@media screen and (orientation: portrait) {
+
+	#linesCont{
+		--_contHeight: 100svh;
+	}
+
+	.iframeProjShowcase, .iframeProjShowcase.Right{
+		flex-direction: column;
+		height: auto;
+
+		.text{
+			width: 100%;
+		}
+
+		.iframeCont{
+			position: relative;
+			height: auto;
+			width: 100%;
+			aspect-ratio: 16/9;
+		}
+	}
+
+	#scrollbarCubed:after{
+		content: "";
+	}
+	#scrollbarCubed span{
+		position: static;
+		animation: none;
+	}
+
+	#heroAccesMenuMargin{
+		--_scale: 2;
+	}
+}

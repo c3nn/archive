@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');
+
+:root{
+    background: black;
+    font-family: Comfortaa;
+}
+.flex{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    top: 0px;
+    right: 0px;
+    height: 100vh;
+}
+.scroll{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: center;
+}
+.scrollText{
+    color: white;
+    font-size: 100px;
+    margin: 120px;
+ }

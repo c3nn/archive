@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Wordle</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="background"></div>
+<div id="center">
+	<div id="board" class="board">
+		<div class="line">
+			<div class="no">L</div>
+			<div class="notSpot">O</div>
+			<div class="onSpot">D</div>
+			<div class="no">I</div>
+			<div class="no">N</div>
+		</div>
+	</div>
+</div>
+<div class="keyboard">
+	<div class="kbline">
+		<button class="kbkey" id="q">Q</button>
+		<button class="kbkey" id="w">W</button>
+		<button class="kbkey" id="e">E</button>
+		<button class="kbkey" id="r">R</button>
+		<button class="kbkey" id="t">T</button>
+		<button class="kbkey" id="y">Y</button>
+		<button class="kbkey" id="u">U</button>
+		<button class="kbkey" id="i">I</button>
+		<button class="kbkey" id="o">O</button>
+		<button class="kbkey" id="p">P</button>
+	</div>
+	<div class="kbline" style="margin-left: 7px;">
+		<button class="kbkey" id="a">A</button>
+		<button class="kbkey" id="s">S</button>
+		<button class="kbkey" id="d">D</button>
+		<button class="kbkey" id="f">F</button>
+		<button class="kbkey" id="g">G</button>
+		<button class="kbkey" id="h">H</button>
+		<button class="kbkey" id="j">J</button>
+		<button class="kbkey" id="k">K</button>
+		<button class="kbkey" id="l">L</button>
+	</div>
+	<div class="kbline" style="margin-left: 21px;">
+		<button class="kbkey" id="z">Z</button>
+		<button class="kbkey" id="x">X</button>
+		<button class="kbkey" id="c">C</button>
+		<button class="kbkey" id="v">V</button>
+		<button class="kbkey" id="b">B</button>
+		<button class="kbkey" id="n">N</button>
+		<button class="kbkey" id="m">M</button>
+		<button id="enter">Enter</button>
+	</div>
+</div>
+<button id="delete">Delete</button>
+<div id="controls" style="display: none;">
+	<t id="unsaved">Make a New Board<br>To See Changes</t>
+	<button id="makeButton" style="height: 30px;">New Board</button>
+	<t>tries:</t>
+	<input id="tries" style="width: 50px;" type="number" value="6" onchange="unsaved.style.display = 'block';"><br>
+	<button id="mode">Easy Mode</button>
+</div>
+<div class="center" id="popup" style="display: none;">
+	<div class="popup">
+		<t id="triesText"></t>
+		<div class="restart" id="restart">Restart</div>
+	</div>
+</div>
+<!-- partial -->
+  <script type="module" src="./script.js"></script>
+
+</body>
+</html>

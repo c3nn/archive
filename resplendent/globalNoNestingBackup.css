@@ -1,0 +1,582 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative&display=swap&display=swap'); /* used if cursive is off */
+@import url("a/3rd/materialSymbolsRounded.css");
+.symbol{
+	font-variation-settings:
+	'FILL' 0,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 24;
+	user-select: none;
+}
+
+/*
+	* HAY this is a little area for code / design guidelines
+
+	I. 	capitalize first letter of css --var if controlled by JS
+			ex: --HeroScrollPer
+		Or is a descriptor included for another class
+			ex: #hero h1 .Blue{} && #hero h1 .Red{} ||
+				|| #menu.Open && #menu.Closed
+	
+	III. underscore for local variables
+		ex: --_contHeight
+
+	IV. css --vars count starting from 0
+		(and go darker or lighter whichever feels more natural)
+
+	V.	global.css is for every page, any other css needed for any other
+		page is labeled with the same name as the html file of the page
+
+	VI.	only use !important for testing purposes or
+		if a browser bug requires it
+
+	V.	1 letter --vars are set in the html for each element,
+		or uses descriptors from guideline "I."
+
+	VI.	use calc(_.__ * var(--mw)) in place of px when applicable in <main>
+		exceptions are things like border-radius with % looking weird
+
+	VII. use --mwt in place of --mw when in font-size or text related
+*/
+
+:root{
+	/* Controlled / used by JS */
+	--Mobile: false;
+	--SupportsCSSHasSelector: false;
+	--ItalicFont: 'Victor Mono';
+	--ScrollY: 0;
+
+	/* Colors */
+	--bg: #030100;
+	--bgAccent0: #060606;
+	--bgAccent1: #252525;
+	--accent0: #ffd4ac;
+	--accent1: #d8a473;
+	--text: var(--accent0);
+	--rgb0: #c71b1b;
+	--rgb1: #cd732a;
+	--rgb2: #cfd941;
+	--rgb3: #449a31;
+	--rgb4: #106193;
+
+	--mw: min(1300px, 90vw); /* % of the main width */
+	--mwt: var(--mw);	/* % of the main width changed to a static value
+						when using mobile (for use only on font-size) */
+
+	--backgroundImg: url("a/bg.avif");
+	background-color: var(--bg);
+	background-image: linear-gradient(color-mix(in srgb, var(--bg) 80%, transparent),transparent,color-mix(in srgb, var(--bg) 80%, transparent)), var(--backgroundImg);
+	background-size: 100vw 100vh, max(100vw, 300px) auto;
+	background-repeat:  repeat-y, repeat-y;
+	background-position: left calc(var(--ScrollY) * 1px), left calc((var(--ScrollY) / 3) * 1px + var(--backgroundYOffset, 0px));
+	color: var(--text);
+	font-family: 'Red Hat Text', sans-serif;
+	padding: 0;
+	margin: 0;
+	overflow-x: hidden;
+}
+:root[data-contrast], .accesCont.Contrast{
+	--bg: #000;
+	--bgAccent0: #333333;
+	--bgAccent1: #fff;
+	--text: #fff;
+}
+:root[data-contrast] * :is(.accesCont:hover, .accesCont:has(input:focus), .socialButton:hover, .socialButton:focus){
+	filter: none !important;
+}
+@supports selector(:has(*)) {
+	:root{
+		--SupportsCSSHasSelector: true;
+	}
+}
+body{
+	padding: 0;
+	margin: 0;
+}
+#mainCont{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	backdrop-filter: blur(max(0.7vw, 3px));
+}
+main{
+	/* stops bug where random padding? (i think) makes a random margin
+	to the right of the page (on mobile especially)  */
+	overflow-x: hidden;
+	width: var(--mw);
+}
+::-webkit-scrollbar{
+	background: var(--bgAccent0);
+	width: 10px;
+	height: 10px;
+}
+::-webkit-scrollbar-thumb{
+	background: var(--bgAccent1);
+}
+::-webkit-scrollbar-corner{
+	background: var(--bgAccent0);
+}
+#tabButton{
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+	z-index: 5138008;
+	background: #ffffff;
+}
+#tabButton:focus-visible{
+	opacity: 1;
+}
+
+/** Loading Lines */
+#loadingLinesCont{
+	top: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	pointer-events: none;
+	filter: brightness(0.2);
+}
+#loadingLinesCont .line{
+	position: relative;
+	background: var(--c);
+	box-shadow: 0 1px var(--c);
+	width: 100%;
+	height: 100%;
+}
+
+/** Lines */
+#linesCont{
+	--_speed: 1.8s;
+	--_lines: 5;
+	--_width: 30vw;
+	--_contHeight: 40dvh;
+	--_lineWidthTimingFunct: cubic-bezier(.55,1.4,.69,.17);
+	width: var(--_width);
+	height: var(--_contHeight);
+	position: fixed;
+	top: 0;
+	right: 0px;
+	pointer-events: none;
+}
+#linesCont *{
+	pointer-events: all;
+}
+@keyframes linesMove {
+	0%	 {bottom: 100%;}
+	100% {bottom: 0%;}
+}
+@keyframes linesWidth {
+	0%	 {width: var(--_width);}
+	100% {width: 0;}
+}
+#linesCont .line{
+	--_height: calc(100% / var(--_lines));
+	background: var(--c);
+	height: var(--_height);
+	position: absolute;
+	animation: linesMove var(--_speed) linear infinite, linesWidth var(--_speed) var(--_lineWidthTimingFunct) infinite;
+	animation-delay: calc(var(--n) * var(--_speed) / var(--_lines));
+	right: 0;
+	transition: width ease 1s;
+}
+#linesCont .line[data-anim="hover"]{
+	--_lineWidthTimingFunct: ease-in;
+}
+#linesCont .line[data-anim="closed"]{
+	width: 0;
+	animation: none;
+}
+#linesCont .hoverCont{
+	position: absolute;
+	right: 0;
+	top: 0;
+	/* background: rgba(34, 75, 186, 0.5); */
+	width: 90%;
+	height: 90%;
+	border-bottom-left-radius: 100%;
+	cursor: copy;
+}
+
+/** Lines Menu */
+#linesMenuCont{
+	--_menuOptions: 5;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: left;
+	pointer-events: all;
+}
+#linesMenuCont .line{
+	--_width: 35vw;
+	--_miniLines: 4;
+	--_totalMiniLines: calc(var(--_menuOptions) * var(--_miniLines));
+	position: relative;
+	background: var(--bgAccent0);
+	height: 100%;
+	width: var(--_width);
+	transition:	width 1s cubic-bezier(.07,.5,0,.95),
+				box-shadow 0.2s cubic-bezier(.07,.5,0,.95);
+	box-shadow: -500px 0 0 0 var(--bgAccent0),
+				inset 0 0 0 0 var(--c);
+}
+#linesMenuCont :is(.line:hover, .line:focus-within){
+	box-shadow: -500px 0 0 0 var(--bgAccent0),
+				inset 0 -4px 0 0 var(--c);
+	transition:	width 1s cubic-bezier(.07,.5,0,.95),
+				box-shadow 1s cubic-bezier(.07,.5,0,.95);
+}
+@keyframes miniMenuLinesWidthOpen {
+	0%  { width: 0;				right: 0; }
+	100%{ width: var(--_miniWidth);	right: calc(var(--_miniWidth) * -1); }
+}
+@keyframes miniMenuLinesWidth {
+	0%  { width: calc(var(--_miniWidth));								right: calc(var(--_miniWidth) * -1); }
+	50% { width: calc(var(--_miniWidth) + var(--_miniWidthAnimChange));	right: calc((var(--_miniWidth) + var(--_miniWidthAnimChange)) * -1); }
+	100%{ width: calc(var(--_miniWidth));								right: calc(var(--_miniWidth) * -1); }
+}
+#linesMenuCont .line .miniLine{
+	--_miniWidthBase: calc(3vh + ((2vh / var(--_totalMiniLines)) * var(--tn)));
+	--_miniWidthAnimChange: 4vh;
+	--_miniWidth: var(--_miniWidthBase);
+	--_speed: 1s;
+	position: absolute;
+	right: calc(var(--_miniWidth) * -1);
+	top: calc((100% / var(--_miniLines)) * var(--ln));
+	width: var(--_miniWidth);
+	height: calc(100% / var(--_miniLines));
+	background: var(--c);
+	transition: background ease 0.3s;
+	box-shadow:	2px 0 var(--c),
+				0px 2px var(--c);
+	border-radius: 0 3px 3px 0;
+}
+#linesMenuCont:has(.line:hover,.line:focus-within) .line:not(:hover):not(:focus-within) .miniLine{
+	background: var(--bgAccent1);
+	box-shadow:	3px 0 var(--c),
+				0px 2px var(--bgAccent1);
+}
+#linesMenuCont .line:hover .miniLine{
+	transition: background ease 0s;
+}
+#linesMenuCont .line a{
+	color: var(--text);
+	padding-top: 2.5vh;
+	font-family: 'Lobster', sans-serif;	
+	font-size: 10svh;
+	text-decoration: none;
+	width: 100%;
+	height: calc(100% - 2.5vh);
+	display: block;
+	text-align: right;
+}
+#linesMenuCont .line a::after{
+	content: '__';
+	color: transparent;
+}
+#linesMenuContCont.Closed:not(:focus-within), #linesMenuContCont.Closed *{
+	pointer-events: none;
+}
+#linesMenuContCont.Closed:not(:focus-within) #linesMenuCont .line{
+	left: calc((var(--_width) * -1) - 6vh);
+	transition: left 1s cubic-bezier(1,0,.76,.75);
+}
+#linesMenuContCont:is(.Open,:focus-within) #linesMenuCont .line{
+	left: 0;
+	transition: left 1s cubic-bezier(.06,.5,0,1.09);
+}
+#linesMenuContCont:is(.Open,:focus-within) #linesMenuCont .line .miniLine{
+	--_firstAnimDuration: 0.8s;
+	animation:	miniMenuLinesWidthOpen var(--_firstAnimDuration) forwards cubic-bezier(1,0,.76,.75),
+				miniMenuLinesWidth var(--_speed) infinite ease-in-out;
+	animation-delay: 0s,
+					calc((var(--tn) / var(--_totalMiniLines) * var(--_speed)) + var(--_firstAnimDuration));
+}
+#linesMenuClose{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+#linesMenuClose:focus-visible{
+	background: #00000070;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 30em;
+}
+#linesMenuClose:not(:focus-visible) .symbol{
+	display: none;
+}
+#linesMenuContCont.Closed:not(:focus-within) #linesMenuClose{
+	display: none;
+}
+
+/** Footer */
+footer{
+	background: var(--bg);
+	text-align: center;
+	align-items: center;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	row-gap: calc(0.02 * var(--mw));
+	height: auto;
+	padding: calc(0.007 * var(--mw));
+	font-size: calc(0.015 * (var(--mwt)));
+	border: none;
+	border-top: solid var(--bgAccent0) calc(0.005 * var(--mw));
+	color: var(--bgAccent1);
+}
+/* accesCont button/cont (can be used throughout page) */
+.accesCont{
+	--_scale: 1;
+	--_mwt: calc(var(--mwt) * var(--_scale));
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: calc(0.03 * var(--_mwt));
+	background: var(--bgAccent0);
+	border-radius: calc(0.01 * var(--_mwt));
+	font-size: calc(0.01 * var(--_mwt));
+	transition: filter 0.4s ease;
+}
+.accesCont span{
+	text-align: center;
+	padding: calc(0.01 * var(--_mwt));
+	padding-top: 0;
+	padding-bottom: 0;
+	color: var(--bgAccent1);
+	font-size: inherit;
+}
+.accesCont input{
+	background: var(--bgAccent1);
+	border: none;
+	border-radius: calc(0.002 * var(--_mwt));
+	padding: calc(0.002 * var(--_mwt));
+	font-size: inherit;
+	cursor: pointer;
+}
+:is(.accesCont:hover, .accesCont:has(input:focus)):not(.accesCont.Contrast){
+	filter: brightness(3);
+}
+/* social links */
+#socialCont:focus{
+	outline: none;
+}
+#socialCont:focus > .socialButton{
+	box-shadow: 1px 1px 0 3px var(--accent1);
+}
+.socialButton{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: var(--w, calc(0.03 * var(--mw)));
+	aspect-ratio: 1/1;
+	background: var(--bgAccent1);
+	fill: var(--bgAccent0);
+	border-radius: 15%;
+	transition: filter 0.4s ease;
+}
+.socialButton:hover,.socialButton:focus{
+	filter: brightness(3);
+}
+.socialButton .symbol{
+	transition: filter 0.4s ease;
+}
+:is(.socialButton:hover, .socialButton:focus) .symbol{
+	filter: brightness(calc(1/3));
+	text-shadow: 0 0 calc(0.02 * var(--mw)) #fff;
+}
+.socialButton svg{
+	height: 90%;
+	aspect-ratio: 1/1;
+}
+
+/** General */
+.flexTemplate{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.flexTemplate.Column{
+	flex-direction: column;
+}
+.pageSpace{
+	display: flex;
+	width: 0;
+	height: var(--h, calc(0.1 * var(--mw)));
+}
+a:any-link{
+	color: inherit;
+	text-decoration: underline wavy;
+	text-decoration-thickness: 0.1em;
+	text-decoration-color: var(--bgAccent1);
+}
+a:visited{
+	text-decoration-color: var(--bgAccent1);
+}
+h1 a, h2 a, h3 a{
+	text-decoration: underline;
+	text-decoration-color: var(--bgAccent1);
+}
+*::selection{
+	background: var(--accent1);
+	color: var(--bg);
+}
+*::-moz-selection{
+	background: var(--accent1);
+	color: var(--bg);
+}
+.circleButtonHighlight{
+	border-radius: 5138008px;
+	cursor: pointer;
+	text-align: center;
+	background: var(--bgAccent0);
+	transition: filter 0.4s ease;
+}
+.circleButtonHighlight:hover, .circleButtonHighlight:focus{
+	filter: brightness(3);
+}
+h1, h2, h3{
+	font-size: calc(0.06 * var(--mwt));
+	font-family: 'Lobster', sans-serif;
+	font-style: italic;
+	font-weight: 100;
+	margin: 0;
+	margin-bottom: calc(0.02 * var(--mw));
+	cursor: default;
+}
+h2, h3{
+	font-size: calc(0.03 * var(--mwt));
+	margin-bottom: calc(0.03 * var(--mw));
+}
+h3{
+	font-size: calc(0.02 * var(--mwt));
+}
+p{
+	font-size: calc(0.015 * var(--mwt));
+	font-family: var(--ItalicFont);
+	font-style: italic;
+}
+
+/** Mobile */
+/* @media screen and ((orientation: portrait) or (pointer: none) or (pointer: coarse)) { */
+@media screen and (orientation: portrait) {
+	
+	:root{
+		--Mobile: true;
+		--mwt: 80svh;
+	}
+
+	/** Lines */
+	#linesCont{
+		--_lineWidthTimingFunct: cubic-bezier(0,1.3,1,.3);
+		--_width: 1.5vw;
+		--_contHeight: 100svh;
+	}
+	@keyframes linesMove {
+		0%	 {bottom: 100%;}
+		100% {bottom: calc(var(--_height) * -1);}
+	}
+	@keyframes linesWidth {
+		0%	 {width: var(--_width);}
+		100% {width: var(--_width);}
+	}
+	#linesCont .line{
+		--_height: calc(100% / (var(--_lines) - 1));
+		overflow: hidden;
+	}
+	#linesCont .hoverCont{
+		height: 100%;
+		width: calc(3 * var(--_width));
+	}
+
+	/** Lines Menu */
+	#linesMenuCont .line .miniLine{
+		display: none;
+	}
+	#linesMenuCont .line{
+		--_width: 100vw;
+		box-shadow: -500px 0 0 0 var(--bgAccent0),
+					inset 0 -4px 0 0 var(--c);
+		transition:	width 1s cubic-bezier(.07,.5,0,.95),
+					box-shadow 1s cubic-bezier(.07,.5,0,.95);
+	}
+	#linesMenuContCont:is(.Open,:focus-within) #linesMenuCont .line{
+		left: 0;
+		transition: left 1s cubic-bezier(.06,.5,0,1);
+	}
+	#linesMenuCont .line a{
+		text-align: center;
+	}
+	#linesMenuCont .line a::after{
+		content: "";
+	}
+	#linesMenuClose{
+		position: fixed;
+		top: 0;
+		left: auto;
+		right: 0;
+		height: 100dvh;
+		width: 4vw;
+		z-index: 2;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+		background: black;
+		overflow: hidden;
+	}
+	#linesMenuClose:focus-visible{
+		font-size: 1em;
+	}
+	#linesMenuClose:not(:focus-visible) .symbol{
+		display: block;
+		font-size: 100%;
+		position: relative;
+	}
+	@keyframes linesMenuClose {
+		0% {width: 0;}
+	}
+	#linesMenuContCont:is(.Open,:focus-within) #linesMenuClose{
+		animation: linesMenuClose 1s ease forwards;
+	}
+	@keyframes linesMenuCloseSymbol {
+		0% {rotate: 45deg;}
+	}
+	#linesMenuContCont:is(.Open,:focus-within) #linesMenuClose .symbol{
+		animation: linesMenuCloseSymbol 1s ease forwards;
+	}
+	
+
+	/** Footer */
+	footer{
+		grid-template-columns: 1fr;
+		font-size: calc(0.025 * (var(--mwt)));
+		gap: calc(0.05 * var(--mw));
+		border: none;
+		border-top: solid var(--bgAccent1) calc(0.02 * var(--mwt));
+		border-radius: 0;
+	}
+	.accesCont{
+		--_scale: 2;
+	}
+	/* social links */
+	.socialButton{
+		width: calc(0.05 * var(--mwt));
+	}
+
+}
